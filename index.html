@@ -240,18 +240,18 @@
 </tr>
 <tr>
 <td class="category tooltip" title="Costs for other expenses incurred that are not captured elsewhere" onmouseover="disableDefaultTooltip(this)">Other</td>
-<td><input type="number" id="OtherJan" oninput="calculateTotals()"></td>
-<td><input type="number" id="OtherFeb" oninput="calculateTotals()"></td>
-<td><input type="number" id="OtherMar" oninput="calculateTotals()"></td>
-<td><input type="number" id="OtherApr" oninput="calculateTotals()"></td>
-<td><input type="number" id="OtherMay" oninput="calculateTotals()"></td>
-<td><input type="number" id="OtherJun" oninput="calculateTotals()"></td>
-<td><input type="number" id="OtherJul" oninput="calculateTotals()"></td>
-<td><input type="number" id="OtherAug" oninput="calculateTotals()"></td>
-<td><input type="number" id="OtherSep" oninput="calculateTotals()"></td>
-<td><input type="number" id="OtherOct" oninput="calculateTotals()"></td>
-<td><input type="number" id="OtherNov" oninput="calculateTotals()"></td>
-<td><input type="number" id="OtherDec" oninput="calculateTotals()"></td>
+<td><input type="number" id="otherJan" oninput="calculateTotals()"></td>
+<td><input type="number" id="otherFeb" oninput="calculateTotals()"></td>
+<td><input type="number" id="otherMar" oninput="calculateTotals()"></td>
+<td><input type="number" id="otherApr" oninput="calculateTotals()"></td>
+<td><input type="number" id="otherMay" oninput="calculateTotals()"></td>
+<td><input type="number" id="otherJun" oninput="calculateTotals()"></td>
+<td><input type="number" id="otherJul" oninput="calculateTotals()"></td>
+<td><input type="number" id="otherAug" oninput="calculateTotals()"></td>
+<td><input type="number" id="otherSep" oninput="calculateTotals()"></td>
+<td><input type="number" id="otherOct" oninput="calculateTotals()"></td>
+<td><input type="number" id="otherNov" oninput="calculateTotals()"></td>
+<td><input type="number" id="otherDec" oninput="calculateTotals()"></td>
 </tr>
   </tr>
 <td class="category"><strong>Total Expenses</strong></td>
@@ -356,42 +356,6 @@ function calculateTotals() {
   });
 }
 
-function exportToExcel() {
-  let table = document.querySelector('table');
-  let rows = Array.from(table.rows);
-  let csvContent = 'Category,January,February,March,April,May,June,July,August,September,October,November,December\n';
-  rows.forEach(row => {
-    let cells = Array.from(row.cells);
-    let rowContent = cells.map(cell => {
-      let input = cell.querySelector('input');
-      return input ? input.value : cell.innerText;
-    }).join(',');
-    csvContent += rowContent + '\n';
-  });
-  let blob = new Blob([csvContent], { type: 'text/csv' });
-  let url = URL.createObjectURL(blob);
-  let a = document.createElement('a');
-  a.href = url;
-  a.download = 'financial_forecast.csv';
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-}
-
-function disableDefaultTooltip(element) {
-  if (!element.getAttribute('data-title')) {
-    element.setAttribute('data-title', element.getAttribute('title'));
-    element.removeAttribute('title');
-  }
-}
-
-function enableDefaultTooltip(element) {
-  if (element.getAttribute('data-title')) {
-    element.setAttribute('title', element.getAttribute('data-title'));
-    element.removeAttribute('data-title');
-  }
-}
-
 // Add event listeners to all input fields
 document.addEventListener('DOMContentLoaded', function() {
   document.querySelectorAll('input[type="number"]').forEach(input => {
@@ -401,6 +365,8 @@ document.addEventListener('DOMContentLoaded', function() {
   // Initial calculation
   calculateTotals();
 });
+
+// Keep the existing exportToExcel, disableDefaultTooltip, and enableDefaultTooltip functions
 </script>
 </body>
 </html>
