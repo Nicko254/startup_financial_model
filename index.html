@@ -359,7 +359,19 @@ function calculateTotals() {
     document.getElementById('runway' + month).innerText = runway;
   });
 }
+function disableDefaultTooltip(element) {
+  if (!element.getAttribute('data-title')) {
+    element.setAttribute('data-title', element.getAttribute('title'));
+    element.removeAttribute('title');
+  }
+}
 
+function enableDefaultTooltip(element) {
+  if (element.getAttribute('data-title')) {
+    element.setAttribute('title', element.getAttribute('data-title'));
+    element.removeAttribute('data-title');
+  }
+}
 // Rest of the JavaScript remains the same
 </script>
 // Add event listeners to all input fields
