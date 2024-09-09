@@ -148,10 +148,98 @@
 
     </tr>
 
-    <!-- The rest of the table rows go here, as in your original HTML -->
-
-    <!-- ... -->
-
+   <tr>
+  <td class="category tooltip" title="Money received from sales, investments, etc." onmouseover="disableDefaultTooltip(this)">Money Received</td>
+  <td><input type="number" id="moneyReceivedJan" oninput="calculateTotals()"></td>
+  <td><input type="number" id="moneyReceivedFeb" oninput="calculateTotals()"></td>
+  <td><input type="number" id="moneyReceivedMar" oninput="calculateTotals()"></td>
+  <td><input type="number" id="moneyReceivedApr" oninput="calculateTotals()"></td>
+  <td><input type="number" id="moneyReceivedMay" oninput="calculateTotals()"></td>
+  <td><input type="number" id="moneyReceivedJun" oninput="calculateTotals()"></td>
+  <td><input type="number" id="moneyReceivedJul" oninput="calculateTotals()"></td>
+  <td><input type="number" id="moneyReceivedAug" oninput="calculateTotals()"></td>
+  <td><input type="number" id="moneyReceivedSep" oninput="calculateTotals()"></td>
+  <td><input type="number" id="moneyReceivedOct" oninput="calculateTotals()"></td>
+  <td><input type="number" id="moneyReceivedNov" oninput="calculateTotals()"></td>
+  <td><input type="number" id="moneyReceivedDec" oninput="calculateTotals()"></td>
+</tr>
+<!-- Add more rows for sales, other income, investments, etc. -->
+<tr>
+  <td class="category"><strong>Total Received</strong></td>
+  <td class="readonly-cell total-expenses" id="totalReceivedJan"></td>
+  <td class="readonly-cell total-expenses" id="totalReceivedFeb"></td>
+  <td class="readonly-cell total-expenses" id="totalReceivedMar"></td>
+  <td class="readonly-cell total-expenses" id="totalReceivedApr"></td>
+  <td class="readonly-cell total-expenses" id="totalReceivedMay"></td>
+  <td class="readonly-cell total-expenses" id="totalReceivedJun"></td>
+  <td class="readonly-cell total-expenses" id="totalReceivedJul"></td>
+  <td class="readonly-cell total-expenses" id="totalReceivedAug"></td>
+  <td class="readonly-cell total-expenses" id="totalReceivedSep"></td>
+  <td class="readonly-cell total-expenses" id="totalReceivedOct"></td>
+  <td class="readonly-cell total-expenses" id="totalReceivedNov"></td>
+  <td class="readonly-cell total-expenses" id="totalReceivedDec"></td>
+</tr>
+<!-- Add rows for expenses (COGs, rent, salaries, etc.) -->
+<tr>
+  <td class="category"><strong>Total Expenses</strong></td>
+  <td class="readonly-cell total-expenses" id="totalExpensesJan"></td>
+  <td class="readonly-cell total-expenses" id="totalExpensesFeb"></td>
+  <td class="readonly-cell total-expenses" id="totalExpensesMar"></td>
+  <td class="readonly-cell total-expenses" id="totalExpensesApr"></td>
+  <td class="readonly-cell total-expenses" id="totalExpensesMay"></td>
+  <td class="readonly-cell total-expenses" id="totalExpensesJun"></td>
+  <td class="readonly-cell total-expenses" id="totalExpensesJul"></td>
+  <td class="readonly-cell total-expenses" id="totalExpensesAug"></td>
+  <td class="readonly-cell total-expenses" id="totalExpensesSep"></td>
+  <td class="readonly-cell total-expenses" id="totalExpensesOct"></td>
+  <td class="readonly-cell total-expenses" id="totalExpensesNov"></td>
+  <td class="readonly-cell total-expenses" id="totalExpensesDec"></td>
+</tr>
+<tr>
+  <td class="category"><strong>Net Income</strong></td>
+  <td class="readonly-cell net-income" id="netIncomeJan"></td>
+  <td class="readonly-cell net-income" id="netIncomeFeb"></td>
+  <td class="readonly-cell net-income" id="netIncomeMar"></td>
+  <td class="readonly-cell net-income" id="netIncomeApr"></td>
+  <td class="readonly-cell net-income" id="netIncomeMay"></td>
+  <td class="readonly-cell net-income" id="netIncomeJun"></td>
+  <td class="readonly-cell net-income" id="netIncomeJul"></td>
+  <td class="readonly-cell net-income" id="netIncomeAug"></td>
+  <td class="readonly-cell net-income" id="netIncomeSep"></td>
+  <td class="readonly-cell net-income" id="netIncomeOct"></td>
+  <td class="readonly-cell net-income" id="netIncomeNov"></td>
+  <td class="readonly-cell net-income" id="netIncomeDec"></td>
+</tr>
+<tr>
+  <td class="category"><strong>Cash Burndown</strong></td>
+  <td class="readonly-cell cash-burndown" id="cashBurndownJan"></td>
+  <td class="readonly-cell cash-burndown" id="cashBurndownFeb"></td>
+  <td class="readonly-cell cash-burndown" id="cashBurndownMar"></td>
+  <td class="readonly-cell cash-burndown" id="cashBurndownApr"></td>
+  <td class="readonly-cell cash-burndown" id="cashBurndownMay"></td>
+  <td class="readonly-cell cash-burndown" id="cashBurndownJun"></td>
+  <td class="readonly-cell cash-burndown" id="cashBurndownJul"></td>
+  <td class="readonly-cell cash-burndown" id="cashBurndownAug"></td>
+  <td class="readonly-cell cash-burndown" id="cashBurndownSep"></td>
+  <td class="readonly-cell cash-burndown" id="cashBurndownOct"></td>
+  <td class="readonly-cell cash-burndown" id="cashBurndownNov"></td>
+  <td class="readonly-cell cash-burndown" id="cashBurndownDec"></td>
+</tr>
+<tr>
+  <td class="category"><strong>Runway (Months)</strong></td>
+  <td class="readonly-cell runway" id="runwayJan"></td>
+  <td class="readonly-cell runway" id="runwayFeb"></td>
+  <td class="readonly-cell runway" id="runwayMar"></td>
+  <td class="readonly-cell runway" id="runwayApr"></td>
+  <td class="readonly-cell runway" id="runwayMay"></td>
+  <td class="readonly-cell runway" id="runwayJun"></td>
+  <td class="readonly-cell runway" id="runwayJul"></td>
+  <td class="readonly-cell runway" id="runwayAug"></td>
+  <td class="readonly-cell runway" id="runwaySep"></td>
+  <td class="readonly-cell runway" id="runwayOct"></td>
+  <td class="readonly-cell runway" id="runwayNov"></td>
+  <td class="readonly-cell runway" id="runwayDec"></td>
+</tr>
   </table>
 
 </div>
