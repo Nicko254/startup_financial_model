@@ -389,6 +389,57 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Keep the existing exportToExcel function here
+
+  function exportToExcel() {
+  let table = document.querySelector('table');
+  let rows = Array.from(table.rows);
+  let csvContent = 'Category,1,2,3,4,5,6,7,8,9,10,11,12\n';
+  
+  rows.forEach((row, rowIndex) => {
+    let cells = Array.from(row.cells);
+    let rowContent = cells.map((cell, cellIndex) => {
+      if (rowIndex === 0) return cell.innerText; // Header row
+      if (cellIndex === 0) return cell.innerText; // Category column
+      
+      let input = cell.querySelector('input');
+      if (input) return input.value || '0'; // Input cells
+      
+      // For calculated cells, return formulas
+      if (row.classList.contains('total-expenses')) {
+        return `=SUM(B${rowIndex-3}:B${rowIndex-1})`;
+      }
+      if (row.classList.contains('net-income')) {
+        return `=B${rowIndex-5}-B${rowIndex-1}`;
+      }
+      if (row.classList.contains('cash-burndown')) {
+        if (cellIndex === 1) {
+          return `=$A$2+B${rowIndex-1}`;
+        } else {
+          let prevCol = String.fromCharCode(64 + cellIndex); // Convert number to letter
+          return `=${prevCol}${rowIndex}+B${rowIndex-1}`;
+        }
+      }
+      if (row.classList.contains('runway')) {
+        return `=IF(B${rowIndex-3}>0, B${rowIndex-1}/B${rowIndex-3}, "N/A")`;
+      }
+      
+      return cell.innerText || '0';
+    }).join(',');
+    csvContent += rowContent + '\n';
+  });
+
+  let blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+  let link = document.createElement("a");
+  if (link.download !== undefined) {
+    let url = URL.createObjectURL(blob);
+    link.setAttribute("href", url);
+    link.setAttribute("download", "financial_forecast.csv");
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+}
 </script>
 </body>
 </html>
