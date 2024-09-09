@@ -393,12 +393,14 @@ function enableDefaultTooltip(element) {
 }
 
 // Add event listeners to all input fields
-document.querySelectorAll('input[type="number"]').forEach(input => {
-  input.addEventListener('input', calculateTotals);
-});
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('input[type="number"]').forEach(input => {
+    input.addEventListener('input', calculateTotals);
+  });
 
-// Initial calculation
-calculateTotals();
+  // Initial calculation
+  calculateTotals();
+});
 </script>
 </body>
 </html>
