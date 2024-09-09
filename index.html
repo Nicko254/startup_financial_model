@@ -319,6 +319,10 @@
 <button onclick="calculateTotals()">Calculate Totals</button>
 <button onclick="exportToExcel()">Export to Excel</button>
 <script>
+function formatNumber(num) {
+  return num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
 function calculateTotals() {
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   let startingInvestment = parseFloat(document.getElementById('startingInvestment').value) || 0;
@@ -339,16 +343,16 @@ function calculateTotals() {
     });
 
     // Update totals in the table
-    document.getElementById('totalReceived' + month).innerText = totalReceived.toFixed(2);
-    document.getElementById('totalExpenses' + month).innerText = totalExpenses.toFixed(2);
+    document.getElementById('totalReceived' + month).innerText = formatNumber(totalReceived);
+    document.getElementById('totalExpenses' + month).innerText = formatNumber(totalExpenses);
 
     // Calculate and update net income
     let netIncome = totalReceived - totalExpenses;
-    document.getElementById('netIncome' + month).innerText = netIncome.toFixed(2);
+    document.getElementById('netIncome' + month).innerText = formatNumber(netIncome);
 
     // Update cash burndown
     cumulativeCash += netIncome;
-    document.getElementById('cashBurndown' + month).innerText = cumulativeCash.toFixed(2);
+    document.getElementById('cashBurndown' + month).innerText = formatNumber(cumulativeCash);
 
     // Calculate and update runway
     let runway = totalExpenses > 0 ? (cumulativeCash / totalExpenses).toFixed(2) : 'N/A';
@@ -356,6 +360,8 @@ function calculateTotals() {
   });
 }
 
+// Rest of the JavaScript remains the same
+</script>
 // Add event listeners to all input fields
 document.addEventListener('DOMContentLoaded', function() {
   document.querySelectorAll('input[type="number"]').forEach(input => {
