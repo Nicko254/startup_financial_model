@@ -1,154 +1,79 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Financial Forecast</title>
-
 <style>
-
   body { font-family: 'Roboto', sans-serif; background-color: #f4f4f9; margin: 0; padding: 20px; }
-
   table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
-
   th, td { border: 1px solid #ddd; padding: 8px; text-align: center; font-size: 16px; }
-
   th { background-color: #457b9d; color: white; }
-
   td input { width: 60px; padding: 5px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; font-size: 16px; }
-
   input[type="number"] { width: 60px; }
-
   button { background-color: #a8dadc; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; }
-
   button:hover { background-color: #457b9d; }
-
   button + button { margin-left: 10px; }
-
   div { margin-bottom: 20px; }
-
   .readonly-cell { font-size: 16px; }
-
   .readonly-cell.total-expenses, .readonly-cell.net-income, .readonly-cell.cash-burndown { font-weight: bold; }
-
   .readonly-cell.total-expenses { background-color: #e0e0e0; }
-
   .readonly-cell.net-income { background-color: #d3d3d3; }
-
   .readonly-cell.cash-burndown { background-color: #c6c6c6; }
-
   #startingInvestment {
-
     width: 300px;
-
     margin-bottom: 20px;
-
     padding: 5px;
-
     box-sizing: border-box;
-
     border: 1px solid #ccc;
-
     border-radius: 10px;
-
     font-size: 16px;
-
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-
     background-color: #ffffe0;
-
   }
-
   .category { font-weight: normal; border: none; }
-
   .tooltip {
-
     position: relative;
-
     display: inline-block;
-
   }
-
   .tooltip:hover::after {
-
     content: attr(data-title);
-
     position: absolute;
-
     background-color: #FF6F61;
-
     color: white;
-
     padding: 5px;
-
     border-radius: 8px;
-
     top: -5px;
-
     left: 105%;
-
     white-space: nowrap;
-
     z-index: 1;
-
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-
   }
-
 </style>
-
 </head>
-
 <body>
-
 <div>
-
   <label for="startingInvestment">Starting Investment:</label>
-
   <input type="number" id="startingInvestment" class="starting-investment" oninput="calculateTotals()">
-
 </div>
-
 <div style="overflow-x:auto;">
-
   <table>
-
     <tr>
-
       <th>Category</th>
-
       <th>January</th>
-
       <th>February</th>
-
       <th>March</th>
-
       <th>April</th>
-
       <th>May</th>
-
       <th>June</th>
-
       <th>July</th>
-
       <th>August</th>
-
       <th>September</th>
-
       <th>October</th>
-
       <th>November</th>
-
       <th>December</th>
-
     </tr>
-
-   <tr>
+    <tr>
   <td class="category tooltip" title="Money received from sales, investments, etc." onmouseover="disableDefaultTooltip(this)">Money Received</td>
   <td><input type="number" id="moneyReceivedJan" oninput="calculateTotals()"></td>
   <td><input type="number" id="moneyReceivedFeb" oninput="calculateTotals()"></td>
@@ -163,259 +88,304 @@
   <td><input type="number" id="moneyReceivedNov" oninput="calculateTotals()"></td>
   <td><input type="number" id="moneyReceivedDec" oninput="calculateTotals()"></td>
 </tr>
-<!-- Add more rows for sales, other income, investments, etc. -->
 <tr>
-  <td class="category"><strong>Total Received</strong></td>
-  <td class="readonly-cell total-expenses" id="totalReceivedJan"></td>
-  <td class="readonly-cell total-expenses" id="totalReceivedFeb"></td>
-  <td class="readonly-cell total-expenses" id="totalReceivedMar"></td>
-  <td class="readonly-cell total-expenses" id="totalReceivedApr"></td>
-  <td class="readonly-cell total-expenses" id="totalReceivedMay"></td>
-  <td class="readonly-cell total-expenses" id="totalReceivedJun"></td>
-  <td class="readonly-cell total-expenses" id="totalReceivedJul"></td>
-  <td class="readonly-cell total-expenses" id="totalReceivedAug"></td>
-  <td class="readonly-cell total-expenses" id="totalReceivedSep"></td>
-  <td class="readonly-cell total-expenses" id="totalReceivedOct"></td>
-  <td class="readonly-cell total-expenses" id="totalReceivedNov"></td>
-  <td class="readonly-cell total-expenses" id="totalReceivedDec"></td>
-</tr>
-<!-- Add rows for expenses (COGs, rent, salaries, etc.) -->
-<tr>
-  <td class="category"><strong>Total Expenses</strong></td>
-  <td class="readonly-cell total-expenses" id="totalExpensesJan"></td>
-  <td class="readonly-cell total-expenses" id="totalExpensesFeb"></td>
-  <td class="readonly-cell total-expenses" id="totalExpensesMar"></td>
-  <td class="readonly-cell total-expenses" id="totalExpensesApr"></td>
-  <td class="readonly-cell total-expenses" id="totalExpensesMay"></td>
-  <td class="readonly-cell total-expenses" id="totalExpensesJun"></td>
-  <td class="readonly-cell total-expenses" id="totalExpensesJul"></td>
-  <td class="readonly-cell total-expenses" id="totalExpensesAug"></td>
-  <td class="readonly-cell total-expenses" id="totalExpensesSep"></td>
-  <td class="readonly-cell total-expenses" id="totalExpensesOct"></td>
-  <td class="readonly-cell total-expenses" id="totalExpensesNov"></td>
-  <td class="readonly-cell total-expenses" id="totalExpensesDec"></td>
+  <td class="category tooltip" title="Revenue from product or service sales" onmouseover="disableDefaultTooltip(this)">Sales</td>
+  <td><input type="number" id="salesJan" oninput="calculateTotals()"></td>
+  <td><input type="number" id="salesFeb" oninput="calculateTotals()"></td>
+  <td><input type="number" id="salesMar" oninput="calculateTotals()"></td>
+  <td><input type="number" id="salesApr" oninput="calculateTotals()"></td>
+  <td><input type="number" id="salesMay" oninput="calculateTotals()"></td>
+  <td><input type="number" id="salesJun" oninput="calculateTotals()"></td>
+  <td><input type="number" id="salesJul" oninput="calculateTotals()"></td>
+  <td><input type="number" id="salesAug" oninput="calculateTotals()"></td>
+  <td><input type="number" id="salesSep" oninput="calculateTotals()"></td>
+  <td><input type="number" id="salesOct" oninput="calculateTotals()"></td>
+  <td><input type="number" id="salesNov" oninput="calculateTotals()"></td>
+  <td><input type="number" id="salesDec" oninput="calculateTotals()"></td>
 </tr>
 <tr>
-  <td class="category"><strong>Net Income</strong></td>
-  <td class="readonly-cell net-income" id="netIncomeJan"></td>
-  <td class="readonly-cell net-income" id="netIncomeFeb"></td>
-  <td class="readonly-cell net-income" id="netIncomeMar"></td>
-  <td class="readonly-cell net-income" id="netIncomeApr"></td>
-  <td class="readonly-cell net-income" id="netIncomeMay"></td>
-  <td class="readonly-cell net-income" id="netIncomeJun"></td>
-  <td class="readonly-cell net-income" id="netIncomeJul"></td>
-  <td class="readonly-cell net-income" id="netIncomeAug"></td>
-  <td class="readonly-cell net-income" id="netIncomeSep"></td>
-  <td class="readonly-cell net-income" id="netIncomeOct"></td>
-  <td class="readonly-cell net-income" id="netIncomeNov"></td>
-  <td class="readonly-cell net-income" id="netIncomeDec"></td>
+  <td class="category tooltip" title="Income from sources other than sales" onmouseover="disableDefaultTooltip(this)">Other Income</td>
+  <td><input type="number" id="otherIncomeJan" oninput="calculateTotals()"></td>
+  <td><input type="number" id="otherIncomeFeb" oninput="calculateTotals()"></td>
+  <td><input type="number" id="otherIncomeMar" oninput="calculateTotals()"></td>
+  <td><input type="number" id="otherIncomeApr" oninput="calculateTotals()"></td>
+  <td><input type="number" id="otherIncomeMay" oninput="calculateTotals()"></td>
+  <td><input type="number" id="otherIncomeJun" oninput="calculateTotals()"></td>
+  <td><input type="number" id="otherIncomeJul" oninput="calculateTotals()"></td>
+  <td><input type="number" id="otherIncomeAug" oninput="calculateTotals()"></td>
+  <td><input type="number" id="otherIncomeSep" oninput="calculateTotals()"></td>
+  <td><input type="number" id="otherIncomeOct" oninput="calculateTotals()"></td>
+  <td><input type="number" id="otherIncomeNov" oninput="calculateTotals()"></td>
+  <td><input type="number" id="otherIncomeDec" oninput="calculateTotals()"></td>
 </tr>
 <tr>
-  <td class="category"><strong>Cash Burndown</strong></td>
-  <td class="readonly-cell cash-burndown" id="cashBurndownJan"></td>
-  <td class="readonly-cell cash-burndown" id="cashBurndownFeb"></td>
-  <td class="readonly-cell cash-burndown" id="cashBurndownMar"></td>
-  <td class="readonly-cell cash-burndown" id="cashBurndownApr"></td>
-  <td class="readonly-cell cash-burndown" id="cashBurndownMay"></td>
-  <td class="readonly-cell cash-burndown" id="cashBurndownJun"></td>
-  <td class="readonly-cell cash-burndown" id="cashBurndownJul"></td>
-  <td class="readonly-cell cash-burndown" id="cashBurndownAug"></td>
-  <td class="readonly-cell cash-burndown" id="cashBurndownSep"></td>
-  <td class="readonly-cell cash-burndown" id="cashBurndownOct"></td>
-  <td class="readonly-cell cash-burndown" id="cashBurndownNov"></td>
-  <td class="readonly-cell cash-burndown" id="cashBurndownDec"></td>
+  <td class="category tooltip" title="Funds received from investors" onmouseover="disableDefaultTooltip(this)">Investment Received</td>
+  <td><input type="number" id="investmentsJan" oninput="calculateTotals()"></td>
+  <td><input type="number" id="investmentsFeb" oninput="calculateTotals()"></td>
+  <td><input type="number" id="investmentsMar" oninput="calculateTotals()"></td>
+  <td><input type="number" id="investmentsApr" oninput="calculateTotals()"></td>
+  <td><input type="number" id="investmentsMay" oninput="calculateTotals()"></td>
+  <td><input type="number" id="investmentsJun" oninput="calculateTotals()"></td>
+  <td><input type="number" id="investmentsJul" oninput="calculateTotals()"></td>
+  <td><input type="number" id="investmentsAug" oninput="calculateTotals()"></td>
+  <td><input type="number" id="investmentsSep" oninput="calculateTotals()"></td>
+  <td><input type="number" id="investmentsOct" oninput="calculateTotals()"></td>
+  <td><input type="number" id="investmentsNov" oninput="calculateTotals()"></td>
+  <td><input type="number" id="investmentsDec" oninput="calculateTotals()"></td>
 </tr>
 <tr>
-  <td class="category"><strong>Runway (Months)</strong></td>
-  <td class="readonly-cell runway" id="runwayJan"></td>
-  <td class="readonly-cell runway" id="runwayFeb"></td>
-  <td class="readonly-cell runway" id="runwayMar"></td>
-  <td class="readonly-cell runway" id="runwayApr"></td>
-  <td class="readonly-cell runway" id="runwayMay"></td>
-  <td class="readonly-cell runway" id="runwayJun"></td>
-  <td class="readonly-cell runway" id="runwayJul"></td>
-  <td class="readonly-cell runway" id="runwayAug"></td>
-  <td class="readonly-cell runway" id="runwaySep"></td>
-  <td class="readonly-cell runway" id="runwayOct"></td>
-  <td class="readonly-cell runway" id="runwayNov"></td>
-  <td class="readonly-cell runway" id="runwayDec"></td>
+<td class="category"><strong>Total Received</strong></td>
+<td class="readonly-cell total-expenses" id="totalReceivedJan"></td>
+<td class="readonly-cell total-expenses" id="totalReceivedFeb"></td>
+<td class="readonly-cell total-expenses" id="totalReceivedMar"></td>
+<td class="readonly-cell total-expenses" id="totalReceivedApr"></td>
+<td class="readonly-cell total-expenses" id="totalReceivedMay"></td>
+<td class="readonly-cell total-expenses" id="totalReceivedJun"></td>
+<td class="readonly-cell total-expenses" id="totalReceivedJul"></td>
+<td class="readonly-cell total-expenses" id="totalReceivedAug"></td>
+<td class="readonly-cell total-expenses" id="totalReceivedSep"></td>
+<td class="readonly-cell total-expenses" id="totalReceivedOct"></td>
+<td class="readonly-cell total-expenses" id="totalReceivedNov"></td>
+<td class="readonly-cell total-expenses" id="totalReceivedDec"></td>
 </tr>
+<tr>
+  <td class="category tooltip" title="Direct costs of producing goods sold" onmouseover="disableDefaultTooltip(this)">COGs</td>
+  <td><input type="number" id="cogsJan" oninput="calculateTotals()"></td>
+  <td><input type="number" id="cogsFeb" oninput="calculateTotals()"></td>
+  <td><input type="number" id="cogsMar" oninput="calculateTotals()"></td>
+  <td><input type="number" id="cogsApr" oninput="calculateTotals()"></td>
+  <td><input type="number" id="cogsMay" oninput="calculateTotals()"></td>
+  <td><input type="number" id="cogsJun" oninput="calculateTotals()"></td>
+  <td><input type="number" id="cogsJul" oninput="calculateTotals()"></td>
+  <td><input type="number" id="cogsAug" oninput="calculateTotals()"></td>
+  <td><input type="number" id="cogsSep" oninput="calculateTotals()"></td>
+  <td><input type="number" id="cogsOct" oninput="calculateTotals()"></td>
+  <td><input type="number" id="cogsNov" oninput="calculateTotals()"></td>
+  <td><input type="number" id="cogsDec" oninput="calculateTotals()"></td>
+</tr>
+<tr>
+  <td class="category tooltip" title="Monthly rent for office or workspace" onmouseover="disableDefaultTooltip(this)">Rent</td>
+  <td><input type="number" id="rentJan" oninput="calculateTotals()"></td>
+  <td><input type="number" id="rentFeb" oninput="calculateTotals()"></td>
+  <td><input type="number" id="rentMar" oninput="calculateTotals()"></td>
+  <td><input type="number" id="rentApr" oninput="calculateTotals()"></td>
+  <td><input type="number" id="rentMay" oninput="calculateTotals()"></td>
+  <td><input type="number" id="rentJun" oninput="calculateTotals()"></td>
+  <td><input type="number" id="rentJul" oninput="calculateTotals()"></td>
+  <td><input type="number" id="rentAug" oninput="calculateTotals()"></td>
+  <td><input type="number" id="rentSep" oninput="calculateTotals()"></td>
+  <td><input type="number" id="rentOct" oninput="calculateTotals()"></td>
+  <td><input type="number" id="rentNov" oninput="calculateTotals()"></td>
+  <td><input type="number" id="rentDec" oninput="calculateTotals()"></td>
+</tr>
+<tr>
+<td class="category tooltip" title="Salaries paid to employees" onmouseover="disableDefaultTooltip(this)">Salaries</td>
+<td><input type="number" id="salariesJan" oninput="calculateTotals()"></td>
+<td><input type="number" id="salariesFeb" oninput="calculateTotals()"></td>
+<td><input type="number" id="salariesMar" oninput="calculateTotals()"></td>
+<td><input type="number" id="salariesApr" oninput="calculateTotals()"></td>
+<td><input type="number" id="salariesMay" oninput="calculateTotals()"></td>
+<td><input type="number" id="salariesJun" oninput="calculateTotals()"></td>
+<td><input type="number" id="salariesJul" oninput="calculateTotals()"></td>
+<td><input type="number" id="salariesAug" oninput="calculateTotals()"></td>
+<td><input type="number" id="salariesSep" oninput="calculateTotals()"></td>
+<td><input type="number" id="salariesOct" oninput="calculateTotals()"></td>
+<td><input type="number" id="salariesNov" oninput="calculateTotals()"></td>
+<td><input type="number" id="salariesDec" oninput="calculateTotals()"></td>
+</tr>
+<tr>
+<td class="category">Utilities</td>
+<td><input type="number" id="utilitiesJan" oninput="calculateTotals()"></td>
+<td><input type="number" id="utilitiesFeb" oninput="calculateTotals()"></td>
+<td><input type="number" id="utilitiesMar" oninput="calculateTotals()"></td>
+<td><input type="number" id="utilitiesApr" oninput="calculateTotals()"></td>
+<td><input type="number" id="utilitiesMay" oninput="calculateTotals()"></td>
+<td><input type="number" id="utilitiesJun" oninput="calculateTotals()"></td>
+<td><input type="number" id="utilitiesJul" oninput="calculateTotals()"></td>
+<td><input type="number" id="utilitiesAug" oninput="calculateTotals()"></td>
+<td><input type="number" id="utilitiesSep" oninput="calculateTotals()"></td>
+<td><input type="number" id="utilitiesOct" oninput="calculateTotals()"></td>
+<td><input type="number" id="utilitiesNov" oninput="calculateTotals()"></td>
+<td><input type="number" id="utilitiesDec" oninput="calculateTotals()"></td>
+</tr>
+<tr>
+<td class="category">Marketing</td>
+<td><input type="number" id="marketingJan" oninput="calculateTotals()"></td>
+<td><input type="number" id="marketingFeb" oninput="calculateTotals()"></td>
+<td><input type="number" id="marketingMar" oninput="calculateTotals()"></td>
+<td><input type="number" id="marketingApr" oninput="calculateTotals()"></td>
+<td><input type="number" id="marketingMay" oninput="calculateTotals()"></td>
+<td><input type="number" id="marketingJun" oninput="calculateTotals()"></td>
+<td><input type="number" id="marketingJul" oninput="calculateTotals()"></td>
+<td><input type="number" id="marketingAug" oninput="calculateTotals()"></td>
+<td><input type="number" id="marketingSep" oninput="calculateTotals()"></td>
+<td><input type="number" id="marketingOct" oninput="calculateTotals()"></td>
+<td><input type="number" id="marketingNov" oninput="calculateTotals()"></td>
+<td><input type="number" id="marketingDec" oninput="calculateTotals()"></td>
+</tr>
+<tr>
+<td class="category">Legal</td>
+<td><input type="number" id="legalJan" oninput="calculateTotals()"></td>
+<td><input type="number" id="legalFeb" oninput="calculateTotals()"></td>
+<td><input type="number" id="legalMar" oninput="calculateTotals()"></td>
+<td><input type="number" id="legalApr" oninput="calculateTotals()"></td>
+<td><input type="number" id="legalMay" oninput="calculateTotals()"></td>
+<td><input type="number" id="legalJun" oninput="calculateTotals()"></td>
+<td><input type="number" id="legalJul" oninput="calculateTotals()"></td>
+<td><input type="number" id="legalAug" oninput="calculateTotals()"></td>
+<td><input type="number" id="legalSep" oninput="calculateTotals()"></td>
+<td><input type="number" id="legalOct" oninput="calculateTotals()"></td>
+<td><input type="number" id="legalNov" oninput="calculateTotals()"></td>
+<td><input type="number" id="legalDec" oninput="calculateTotals()"></td>
+</tr>
+<tr>
+<td class="category"><strong>Total Expenses</strong></td>
+<td class="readonly-cell total-expenses" id="totalExpensesJan"></td>
+<td class="readonly-cell total-expenses" id="totalExpensesFeb"></td>
+<td class="readonly-cell total-expenses" id="totalExpensesMar"></td>
+<td class="readonly-cell total-expenses" id="totalExpensesApr"></td>
+<td class="readonly-cell total-expenses" id="totalExpensesMay"></td>
+<td class="readonly-cell total-expenses" id="totalExpensesJun"></td>
+<td class="readonly-cell total-expenses" id="totalExpensesJul"></td>
+<td class="readonly-cell total-expenses" id="totalExpensesAug"></td>
+<td class="readonly-cell total-expenses" id="totalExpensesSep"></td>
+<td class="readonly-cell total-expenses" id="totalExpensesOct"></td>
+<td class="readonly-cell total-expenses" id="totalExpensesNov"></td>
+<td class="readonly-cell total-expenses" id="totalExpensesDec"></td>
+</tr>
+<tr>
+<td class="category"><strong>Net Income</strong></td>
+<td class="readonly-cell net-income" id="netIncomeJan"></td>
+<td class="readonly-cell net-income" id="netIncomeFeb"></td>
+<td class="readonly-cell net-income" id="netIncomeMar"></td>
+<td class="readonly-cell net-income" id="netIncomeApr"></td>
+<td class="readonly-cell net-income" id="netIncomeMay"></td>
+<td class="readonly-cell net-income" id="netIncomeJun"></td>
+<td class="readonly-cell net-income" id="netIncomeJul"></td>
+<td class="readonly-cell net-income" id="netIncomeAug"></td>
+<td class="readonly-cell net-income" id="netIncomeSep"></td>
+<td class="readonly-cell net-income" id="netIncomeOct"></td>
+<td class="readonly-cell net-income" id="netIncomeNov"></td>
+<td class="readonly-cell net-income" id="netIncomeDec"></td>
+</tr>
+<tr>
+<td class="category"><strong>Cash Burndown</strong></td>
+<td class="readonly-cell cash-burndown" id="cashBurndownJan"></td>
+<td class="readonly-cell cash-burndown" id="cashBurndownFeb"></td>
+<td class="readonly-cell cash-burndown" id="cashBurndownMar"></td>
+<td class="readonly-cell cash-burndown" id="cashBurndownApr"></td>
+<td class="readonly-cell cash-burndown" id="cashBurndownMay"></td>
+<td class="readonly-cell cash-burndown" id="cashBurndownJun"></td>
+<td class="readonly-cell cash-burndown" id="cashBurndownJul"></td>
+<td class="readonly-cell cash-burndown" id="cashBurndownAug"></td>
+<td class="readonly-cell cash-burndown" id="cashBurndownSep"></td>
+<td class="readonly-cell cash-burndown" id="cashBurndownOct"></td>
+<td class="readonly-cell cash-burndown" id="cashBurndownNov"></td>
+<td class="readonly-cell cash-burndown" id="cashBurndownDec"></td>
+</tr>
+<tr>
+<td class="category"><strong>Runway (Months)</strong></td>
+<td class="readonly-cell runway" id="runwayJan"></td>
+<td class="readonly-cell runway" id="runwayFeb"></td>
+<td class="readonly-cell runway" id="runwayMar"></td>
+<td class="readonly-cell runway" id="runwayApr"></td>
+<td class="readonly-cell runway" id="runwayMay"></td>
+<td class="readonly-cell runway" id="runwayJun"></td>
+<td class="readonly-cell runway" id="runwayJul"></td>
+<td class="readonly-cell runway" id="runwayAug"></td>
+<td class="readonly-cell runway" id="runwaySep"></td>
+<td class="readonly-cell runway" id="runwayOct"></td>
+<td class="readonly-cell runway" id="runwayNov"></td>
+<td class="readonly-cell runway" id="runwayDec"></td>
+</tr>
+
   </table>
-
 </div>
-
 <button onclick="calculateTotals()">Calculate Totals</button>
-
 <button onclick="exportToExcel()">Export to Excel</button>
-
 <script>
-
 function calculateTotals() {
-
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
   let startingInvestment = parseFloat(document.getElementById('startingInvestment').value) || 0;
-
   let cumulativeCash = startingInvestment;
 
- 
-
   months.forEach(month => {
-
     let totalReceived = 0;
-
     let totalExpenses = 0;
 
- 
-
     // Calculate total received
-
     ['moneyReceived', 'sales', 'otherIncome', 'investments'].forEach(category => {
-
       totalReceived += parseFloat(document.getElementById(category + month).value) || 0;
-
     });
-
- 
 
     // Calculate total expenses
-
     ['cogs', 'rent', 'salaries', 'utilities', 'marketing', 'legal'].forEach(category => {
-
       totalExpenses += parseFloat(document.getElementById(category + month).value) || 0;
-
     });
 
- 
-
     // Update totals in the table
-
     document.getElementById('totalReceived' + month).innerText = totalReceived.toFixed(2);
-
     document.getElementById('totalExpenses' + month).innerText = totalExpenses.toFixed(2);
 
- 
-
     // Calculate and update net income
-
     let netIncome = totalReceived - totalExpenses;
-
     document.getElementById('netIncome' + month).innerText = netIncome.toFixed(2);
 
- 
-
     // Update cash burndown
-
     cumulativeCash += netIncome;
-
     document.getElementById('cashBurndown' + month).innerText = cumulativeCash.toFixed(2);
 
- 
-
     // Calculate and update runway
-
     let runway = totalExpenses > 0 ? (cumulativeCash / totalExpenses).toFixed(2) : 'N/A';
-
     document.getElementById('runway' + month).innerText = runway;
-
   });
-
 }
-
- 
 
 function exportToExcel() {
-
   let table = document.querySelector('table');
-
   let rows = Array.from(table.rows);
-
   let csvContent = 'Category,January,February,March,April,May,June,July,August,September,October,November,December\n';
-
   rows.forEach(row => {
-
     let cells = Array.from(row.cells);
-
     let rowContent = cells.map(cell => {
-
       let input = cell.querySelector('input');
-
       return input ? input.value : cell.innerText;
-
     }).join(',');
-
     csvContent += rowContent + '\n';
-
   });
-
   let blob = new Blob([csvContent], { type: 'text/csv' });
-
   let url = URL.createObjectURL(blob);
-
   let a = document.createElement('a');
-
   a.href = url;
-
   a.download = 'financial_forecast.csv';
-
   document.body.appendChild(a);
-
   a.click();
-
   document.body.removeChild(a);
-
 }
-
- 
 
 function disableDefaultTooltip(element) {
-
   if (!element.getAttribute('data-title')) {
-
     element.setAttribute('data-title', element.getAttribute('title'));
-
     element.removeAttribute('title');
-
   }
-
 }
-
- 
 
 function enableDefaultTooltip(element) {
-
   if (element.getAttribute('data-title')) {
-
     element.setAttribute('title', element.getAttribute('data-title'));
-
     element.removeAttribute('data-title');
-
   }
-
 }
 
- 
-
 // Add event listeners to all input fields
-
 document.querySelectorAll('input[type="number"]').forEach(input => {
-
   input.addEventListener('input', calculateTotals);
-
 });
 
- 
-
 // Initial calculation
-
 calculateTotals();
-
 </script>
-
 </body>
-
 </html>
 
- 
 
- 
