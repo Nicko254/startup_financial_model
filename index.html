@@ -324,41 +324,46 @@ function formatNumber(num) {
 }
 
 function calculateTotals() {
-  const months = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
+  const monthMap = {
+    '1': 'Jan', '2': 'Feb', '3': 'Mar', '4': 'Apr', '5': 'May', '6': 'Jun',
+    '7': 'Jul', '8': 'Aug', '9': 'Sep', '10': 'Oct', '11': 'Nov', '12': 'Dec'
+  };
   let startingInvestment = parseFloat(document.getElementById('startingInvestment').value) || 0;
   let cumulativeCash = startingInvestment;
 
-  months.forEach(month => {
+  Object.keys(monthMap).forEach(month => {
+    let monthAbbr = monthMap[month];
     let totalReceived = 0;
     let totalExpenses = 0;
 
     // Calculate total received
     ['moneyReceived', 'sales', 'otherIncome', 'investments'].forEach(category => {
-      totalReceived += parseFloat(document.getElementById(category + month).value) || 0;
+      totalReceived += parseFloat(document.getElementById(category + monthAbbr).value) || 0;
     });
 
     // Calculate total expenses
     ['cogs', 'rent', 'salaries', 'utilities', 'marketing', 'legal', 'other'].forEach(category => {
-      totalExpenses += parseFloat(document.getElementById(category + month).value) || 0;
+      totalExpenses += parseFloat(document.getElementById(category + monthAbbr).value) || 0;
     });
 
     // Update totals in the table
-    document.getElementById('totalReceived' + month).innerText = formatNumber(totalReceived);
-    document.getElementById('totalExpenses' + month).innerText = formatNumber(totalExpenses);
+    document.getElementById('totalReceived' + monthAbbr).innerText = formatNumber(totalReceived);
+    document.getElementById('totalExpenses' + monthAbbr).innerText = formatNumber(totalExpenses);
 
     // Calculate and update net income
     let netIncome = totalReceived - totalExpenses;
-    document.getElementById('netIncome' + month).innerText = formatNumber(netIncome);
+    document.getElementById('netIncome' + monthAbbr).innerText = formatNumber(netIncome);
 
     // Update cash burndown
     cumulativeCash += netIncome;
-    document.getElementById('cashBurndown' + month).innerText = formatNumber(cumulativeCash);
+    document.getElementById('cashBurndown' + monthAbbr).innerText = formatNumber(cumulativeCash);
 
     // Calculate and update runway
     let runway = totalExpenses > 0 ? (cumulativeCash / totalExpenses).toFixed(2) : 'N/A';
-    document.getElementById('runway' + month).innerText = runway;
+    document.getElementById('runway' + monthAbbr).innerText = runway;
   });
 }
+
 function disableDefaultTooltip(element) {
   if (!element.getAttribute('data-title')) {
     element.setAttribute('data-title', element.getAttribute('title'));
@@ -372,6 +377,7 @@ function enableDefaultTooltip(element) {
     element.removeAttribute('data-title');
   }
 }
+
 // Add event listeners to all input fields
 document.addEventListener('DOMContentLoaded', function() {
   document.querySelectorAll('input[type="number"]').forEach(input => {
@@ -383,7 +389,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Keep the existing exportToExcel function here
-
 </script>
 </body>
 </html>
