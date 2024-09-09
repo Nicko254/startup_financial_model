@@ -334,7 +334,7 @@ function calculateTotals() {
     });
 
     // Calculate total expenses
-    ['cogs', 'rent', 'salaries', 'utilities', 'marketing', 'legal'].forEach(category => {
+    ['cogs', 'rent', 'salaries', 'utilities', 'marketing', 'legal', 'other'].forEach(category => {
       totalExpenses += parseFloat(document.getElementById(category + month).value) || 0;
     });
 
