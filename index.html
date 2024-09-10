@@ -49,6 +49,18 @@
     z-index: 1;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   }
+<style>
+  /* Add this to your existing CSS */
+  .category-header {
+    background-color: #f0f0f0;
+    font-weight: bold;
+  }
+  .category-header td {
+    text-align: left;
+    padding-left: 10px;
+  }
+</style>
+
 </style>
 </head>
 <body>
@@ -74,232 +86,233 @@
   <th>12</th>
 </tr>
    <tr>
-  <td class="category" colspan="13"><strong>Money Received</strong></td>
+ <tr class="category-header">
+  <td colspan="13"><strong>Money Received</strong></td>
 </tr>
 <tr>
   <td class="category tooltip" title="Revenue from product or service sales" onmouseover="disableDefaultTooltip(this)">Sales</td>
-  <td><input type="number" id="salesJan" oninput="calculateTotals()"></td>
-  <td><input type="number" id="salesFeb" oninput="calculateTotals()"></td>
-  <td><input type="number" id="salesMar" oninput="calculateTotals()"></td>
-  <td><input type="number" id="salesApr" oninput="calculateTotals()"></td>
-  <td><input type="number" id="salesMay" oninput="calculateTotals()"></td>
-  <td><input type="number" id="salesJun" oninput="calculateTotals()"></td>
-  <td><input type="number" id="salesJul" oninput="calculateTotals()"></td>
-  <td><input type="number" id="salesAug" oninput="calculateTotals()"></td>
-  <td><input type="number" id="salesSep" oninput="calculateTotals()"></td>
-  <td><input type="number" id="salesOct" oninput="calculateTotals()"></td>
-  <td><input type="number" id="salesNov" oninput="calculateTotals()"></td>
-  <td><input type="number" id="salesDec" oninput="calculateTotals()"></td>
+  <td><input type="number" id="sales1" oninput="calculateTotals()"></td>
+  <td><input type="number" id="sales2" oninput="calculateTotals()"></td>
+  <td><input type="number" id="sales3" oninput="calculateTotals()"></td>
+  <td><input type="number" id="sales4" oninput="calculateTotals()"></td>
+  <td><input type="number" id="sales5" oninput="calculateTotals()"></td>
+  <td><input type="number" id="sales6" oninput="calculateTotals()"></td>
+  <td><input type="number" id="sales7" oninput="calculateTotals()"></td>
+  <td><input type="number" id="sales8" oninput="calculateTotals()"></td>
+  <td><input type="number" id="sales9" oninput="calculateTotals()"></td>
+  <td><input type="number" id="sales10" oninput="calculateTotals()"></td>
+  <td><input type="number" id="sales11" oninput="calculateTotals()"></td>
+  <td><input type="number" id="sales12" oninput="calculateTotals()"></td>
 </tr>
 <tr>
   <td class="category tooltip" title="Income from sources other than sales" onmouseover="disableDefaultTooltip(this)">Other Income</td>
-  <td><input type="number" id="otherIncomeJan" oninput="calculateTotals()"></td>
-  <td><input type="number" id="otherIncomeFeb" oninput="calculateTotals()"></td>
-  <td><input type="number" id="otherIncomeMar" oninput="calculateTotals()"></td>
-  <td><input type="number" id="otherIncomeApr" oninput="calculateTotals()"></td>
-  <td><input type="number" id="otherIncomeMay" oninput="calculateTotals()"></td>
-  <td><input type="number" id="otherIncomeJun" oninput="calculateTotals()"></td>
-  <td><input type="number" id="otherIncomeJul" oninput="calculateTotals()"></td>
-  <td><input type="number" id="otherIncomeAug" oninput="calculateTotals()"></td>
-  <td><input type="number" id="otherIncomeSep" oninput="calculateTotals()"></td>
-  <td><input type="number" id="otherIncomeOct" oninput="calculateTotals()"></td>
-  <td><input type="number" id="otherIncomeNov" oninput="calculateTotals()"></td>
-  <td><input type="number" id="otherIncomeDec" oninput="calculateTotals()"></td>
+  <td><input type="number" id="otherIncome1" oninput="calculateTotals()"></td>
+  <td><input type="number" id="otherIncome2" oninput="calculateTotals()"></td>
+  <td><input type="number" id="otherIncome3" oninput="calculateTotals()"></td>
+  <td><input type="number" id="otherIncome4" oninput="calculateTotals()"></td>
+  <td><input type="number" id="otherIncome5" oninput="calculateTotals()"></td>
+  <td><input type="number" id="otherIncome6" oninput="calculateTotals()"></td>
+  <td><input type="number" id="otherIncome7" oninput="calculateTotals()"></td>
+  <td><input type="number" id="otherIncome8" oninput="calculateTotals()"></td>
+  <td><input type="number" id="otherIncome9" oninput="calculateTotals()"></td>
+  <td><input type="number" id="otherIncome10" oninput="calculateTotals()"></td>
+  <td><input type="number" id="otherIncome11" oninput="calculateTotals()"></td>
+  <td><input type="number" id="otherIncome12" oninput="calculateTotals()"></td>
 </tr>
 <tr>
   <td class="category tooltip" title="Funds received from investors" onmouseover="disableDefaultTooltip(this)">Investment Received</td>
-  <td><input type="number" id="investmentsJan" oninput="calculateTotals()"></td>
-  <td><input type="number" id="investmentsFeb" oninput="calculateTotals()"></td>
-  <td><input type="number" id="investmentsMar" oninput="calculateTotals()"></td>
-  <td><input type="number" id="investmentsApr" oninput="calculateTotals()"></td>
-  <td><input type="number" id="investmentsMay" oninput="calculateTotals()"></td>
-  <td><input type="number" id="investmentsJun" oninput="calculateTotals()"></td>
-  <td><input type="number" id="investmentsJul" oninput="calculateTotals()"></td>
-  <td><input type="number" id="investmentsAug" oninput="calculateTotals()"></td>
-  <td><input type="number" id="investmentsSep" oninput="calculateTotals()"></td>
-  <td><input type="number" id="investmentsOct" oninput="calculateTotals()"></td>
-  <td><input type="number" id="investmentsNov" oninput="calculateTotals()"></td>
-  <td><input type="number" id="investmentsDec" oninput="calculateTotals()"></td>
+  <td><input type="number" id="investments1" oninput="calculateTotals()"></td>
+  <td><input type="number" id="investments2" oninput="calculateTotals()"></td>
+  <td><input type="number" id="investments3" oninput="calculateTotals()"></td>
+  <td><input type="number" id="investments4" oninput="calculateTotals()"></td>
+  <td><input type="number" id="investments5" oninput="calculateTotals()"></td>
+  <td><input type="number" id="investments6" oninput="calculateTotals()"></td>
+  <td><input type="number" id="investments7" oninput="calculateTotals()"></td>
+  <td><input type="number" id="investments8" oninput="calculateTotals()"></td>
+  <td><input type="number" id="investments9" oninput="calculateTotals()"></td>
+  <td><input type="number" id="investments10" oninput="calculateTotals()"></td>
+  <td><input type="number" id="investments11" oninput="calculateTotals()"></td>
+  <td><input type="number" id="investments12" oninput="calculateTotals()"></td>
 </tr>
 <tr>
 <td class="category"><strong>Total Received</strong></td>
-<td class="readonly-cell total-expenses" id="totalReceivedJan"></td>
-<td class="readonly-cell total-expenses" id="totalReceivedFeb"></td>
-<td class="readonly-cell total-expenses" id="totalReceivedMar"></td>
-<td class="readonly-cell total-expenses" id="totalReceivedApr"></td>
-<td class="readonly-cell total-expenses" id="totalReceivedMay"></td>
-<td class="readonly-cell total-expenses" id="totalReceivedJun"></td>
-<td class="readonly-cell total-expenses" id="totalReceivedJul"></td>
-<td class="readonly-cell total-expenses" id="totalReceivedAug"></td>
-<td class="readonly-cell total-expenses" id="totalReceivedSep"></td>
-<td class="readonly-cell total-expenses" id="totalReceivedOct"></td>
-<td class="readonly-cell total-expenses" id="totalReceivedNov"></td>
-<td class="readonly-cell total-expenses" id="totalReceivedDec"></td>
+<td class="readonly-cell total-expenses" id="totalReceived1"></td>
+<td class="readonly-cell total-expenses" id="totalReceived2"></td>
+<td class="readonly-cell total-expenses" id="totalReceived3"></td>
+<td class="readonly-cell total-expenses" id="totalReceived4"></td>
+<td class="readonly-cell total-expenses" id="totalReceived5"></td>
+<td class="readonly-cell total-expenses" id="totalReceived6"></td>
+<td class="readonly-cell total-expenses" id="totalReceived7"></td>
+<td class="readonly-cell total-expenses" id="totalReceived8"></td>
+<td class="readonly-cell total-expenses" id="totalReceived9"></td>
+<td class="readonly-cell total-expenses" id="totalReceived10"></td>
+<td class="readonly-cell total-expenses" id="totalReceived11"></td>
+<td class="readonly-cell total-expenses" id="totalReceived12"></td>
 </tr>
 <tr>
   <td class="category tooltip" title="Direct costs of producing goods sold" onmouseover="disableDefaultTooltip(this)">COGs</td>
-  <td><input type="number" id="cogsJan" oninput="calculateTotals()"></td>
-  <td><input type="number" id="cogsFeb" oninput="calculateTotals()"></td>
-  <td><input type="number" id="cogsMar" oninput="calculateTotals()"></td>
-  <td><input type="number" id="cogsApr" oninput="calculateTotals()"></td>
-  <td><input type="number" id="cogsMay" oninput="calculateTotals()"></td>
-  <td><input type="number" id="cogsJun" oninput="calculateTotals()"></td>
-  <td><input type="number" id="cogsJul" oninput="calculateTotals()"></td>
-  <td><input type="number" id="cogsAug" oninput="calculateTotals()"></td>
-  <td><input type="number" id="cogsSep" oninput="calculateTotals()"></td>
-  <td><input type="number" id="cogsOct" oninput="calculateTotals()"></td>
-  <td><input type="number" id="cogsNov" oninput="calculateTotals()"></td>
-  <td><input type="number" id="cogsDec" oninput="calculateTotals()"></td>
+  <td><input type="number" id="cogs1" oninput="calculateTotals()"></td>
+  <td><input type="number" id="cogs2" oninput="calculateTotals()"></td>
+  <td><input type="number" id="cogs3" oninput="calculateTotals()"></td>
+  <td><input type="number" id="cogs4" oninput="calculateTotals()"></td>
+  <td><input type="number" id="cogs5" oninput="calculateTotals()"></td>
+  <td><input type="number" id="cogs6" oninput="calculateTotals()"></td>
+  <td><input type="number" id="cogs7" oninput="calculateTotals()"></td>
+  <td><input type="number" id="cogs8" oninput="calculateTotals()"></td>
+  <td><input type="number" id="cogs9" oninput="calculateTotals()"></td>
+  <td><input type="number" id="cogs10" oninput="calculateTotals()"></td>
+  <td><input type="number" id="cogs11" oninput="calculateTotals()"></td>
+  <td><input type="number" id="cogs12" oninput="calculateTotals()"></td>
 </tr>
 <tr>
   <td class="category tooltip" title="Monthly rent for office or workspace" onmouseover="disableDefaultTooltip(this)">Rent</td>
-  <td><input type="number" id="rentJan" oninput="calculateTotals()"></td>
-  <td><input type="number" id="rentFeb" oninput="calculateTotals()"></td>
-  <td><input type="number" id="rentMar" oninput="calculateTotals()"></td>
-  <td><input type="number" id="rentApr" oninput="calculateTotals()"></td>
-  <td><input type="number" id="rentMay" oninput="calculateTotals()"></td>
-  <td><input type="number" id="rentJun" oninput="calculateTotals()"></td>
-  <td><input type="number" id="rentJul" oninput="calculateTotals()"></td>
-  <td><input type="number" id="rentAug" oninput="calculateTotals()"></td>
-  <td><input type="number" id="rentSep" oninput="calculateTotals()"></td>
-  <td><input type="number" id="rentOct" oninput="calculateTotals()"></td>
-  <td><input type="number" id="rentNov" oninput="calculateTotals()"></td>
-  <td><input type="number" id="rentDec" oninput="calculateTotals()"></td>
+  <td><input type="number" id="rent1" oninput="calculateTotals()"></td>
+  <td><input type="number" id="rent2" oninput="calculateTotals()"></td>
+  <td><input type="number" id="rent3" oninput="calculateTotals()"></td>
+  <td><input type="number" id="rent4" oninput="calculateTotals()"></td>
+  <td><input type="number" id="rent5" oninput="calculateTotals()"></td>
+  <td><input type="number" id="rent6" oninput="calculateTotals()"></td>
+  <td><input type="number" id="rent7" oninput="calculateTotals()"></td>
+  <td><input type="number" id="rent8" oninput="calculateTotals()"></td>
+  <td><input type="number" id="rent9" oninput="calculateTotals()"></td>
+  <td><input type="number" id="rent10" oninput="calculateTotals()"></td>
+  <td><input type="number" id="rent11" oninput="calculateTotals()"></td>
+  <td><input type="number" id="rent12" oninput="calculateTotals()"></td>
 </tr>
 <tr>
 <td class="category tooltip" title="Salaries paid to employees" onmouseover="disableDefaultTooltip(this)">Salaries</td>
-<td><input type="number" id="salariesJan" oninput="calculateTotals()"></td>
-<td><input type="number" id="salariesFeb" oninput="calculateTotals()"></td>
-<td><input type="number" id="salariesMar" oninput="calculateTotals()"></td>
-<td><input type="number" id="salariesApr" oninput="calculateTotals()"></td>
-<td><input type="number" id="salariesMay" oninput="calculateTotals()"></td>
-<td><input type="number" id="salariesJun" oninput="calculateTotals()"></td>
-<td><input type="number" id="salariesJul" oninput="calculateTotals()"></td>
-<td><input type="number" id="salariesAug" oninput="calculateTotals()"></td>
-<td><input type="number" id="salariesSep" oninput="calculateTotals()"></td>
-<td><input type="number" id="salariesOct" oninput="calculateTotals()"></td>
-<td><input type="number" id="salariesNov" oninput="calculateTotals()"></td>
-<td><input type="number" id="salariesDec" oninput="calculateTotals()"></td>
+<td><input type="number" id="salaries1" oninput="calculateTotals()"></td>
+<td><input type="number" id="salaries2" oninput="calculateTotals()"></td>
+<td><input type="number" id="salaries3" oninput="calculateTotals()"></td>
+<td><input type="number" id="salaries4" oninput="calculateTotals()"></td>
+<td><input type="number" id="salaries5" oninput="calculateTotals()"></td>
+<td><input type="number" id="salaries6" oninput="calculateTotals()"></td>
+<td><input type="number" id="salaries7" oninput="calculateTotals()"></td>
+<td><input type="number" id="salaries8" oninput="calculateTotals()"></td>
+<td><input type="number" id="salaries9" oninput="calculateTotals()"></td>
+<td><input type="number" id="salaries10" oninput="calculateTotals()"></td>
+<td><input type="number" id="salaries11" oninput="calculateTotals()"></td>
+<td><input type="number" id="salaries12" oninput="calculateTotals()"></td>
 </tr>
 <tr>
 <td class="category tooltip" title="Costs for electricity, water, internet, and other basic services" onmouseover="disableDefaultTooltip(this)">Utilities</td>
-<td><input type="number" id="utilitiesJan" oninput="calculateTotals()"></td>
-<td><input type="number" id="utilitiesFeb" oninput="calculateTotals()"></td>
-<td><input type="number" id="utilitiesMar" oninput="calculateTotals()"></td>
-<td><input type="number" id="utilitiesApr" oninput="calculateTotals()"></td>
-<td><input type="number" id="utilitiesMay" oninput="calculateTotals()"></td>
-<td><input type="number" id="utilitiesJun" oninput="calculateTotals()"></td>
-<td><input type="number" id="utilitiesJul" oninput="calculateTotals()"></td>
-<td><input type="number" id="utilitiesAug" oninput="calculateTotals()"></td>
-<td><input type="number" id="utilitiesSep" oninput="calculateTotals()"></td>
-<td><input type="number" id="utilitiesOct" oninput="calculateTotals()"></td>
-<td><input type="number" id="utilitiesNov" oninput="calculateTotals()"></td>
-<td><input type="number" id="utilitiesDec" oninput="calculateTotals()"></td>
+<td><input type="number" id="utilities1" oninput="calculateTotals()"></td>
+<td><input type="number" id="utilities2" oninput="calculateTotals()"></td>
+<td><input type="number" id="utilities3" oninput="calculateTotals()"></td>
+<td><input type="number" id="utilities4" oninput="calculateTotals()"></td>
+<td><input type="number" id="utilities5" oninput="calculateTotals()"></td>
+<td><input type="number" id="utilities6" oninput="calculateTotals()"></td>
+<td><input type="number" id="utilities7" oninput="calculateTotals()"></td>
+<td><input type="number" id="utilities8" oninput="calculateTotals()"></td>
+<td><input type="number" id="utilities9" oninput="calculateTotals()"></td>
+<td><input type="number" id="utilities10" oninput="calculateTotals()"></td>
+<td><input type="number" id="utilities11" oninput="calculateTotals()"></td>
+<td><input type="number" id="utilities12" oninput="calculateTotals()"></td>
 </tr>
 <tr>
 <td class="category tooltip" title="Expenses for advertising, promotions, and other marketing activities" onmouseover="disableDefaultTooltip(this)">Marketing</td>
-<td><input type="number" id="marketingJan" oninput="calculateTotals()"></td>
-<td><input type="number" id="marketingFeb" oninput="calculateTotals()"></td>
-<td><input type="number" id="marketingMar" oninput="calculateTotals()"></td>
-<td><input type="number" id="marketingApr" oninput="calculateTotals()"></td>
-<td><input type="number" id="marketingMay" oninput="calculateTotals()"></td>
-<td><input type="number" id="marketingJun" oninput="calculateTotals()"></td>
-<td><input type="number" id="marketingJul" oninput="calculateTotals()"></td>
-<td><input type="number" id="marketingAug" oninput="calculateTotals()"></td>
-<td><input type="number" id="marketingSep" oninput="calculateTotals()"></td>
-<td><input type="number" id="marketingOct" oninput="calculateTotals()"></td>
-<td><input type="number" id="marketingNov" oninput="calculateTotals()"></td>
-<td><input type="number" id="marketingDec" oninput="calculateTotals()"></td>
+<td><input type="number" id="marketing1" oninput="calculateTotals()"></td>
+<td><input type="number" id="marketing2" oninput="calculateTotals()"></td>
+<td><input type="number" id="marketing3" oninput="calculateTotals()"></td>
+<td><input type="number" id="marketing4" oninput="calculateTotals()"></td>
+<td><input type="number" id="marketing5" oninput="calculateTotals()"></td>
+<td><input type="number" id="marketing6" oninput="calculateTotals()"></td>
+<td><input type="number" id="marketing7" oninput="calculateTotals()"></td>
+<td><input type="number" id="marketing8" oninput="calculateTotals()"></td>
+<td><input type="number" id="marketing9" oninput="calculateTotals()"></td>
+<td><input type="number" id="marketing10" oninput="calculateTotals()"></td>
+<td><input type="number" id="marketing11" oninput="calculateTotals()"></td>
+<td><input type="number" id="marketing12" oninput="calculateTotals()"></td>
 </tr>
 <tr>
 <td class="category tooltip" title="Costs for legal services, licenses, and regulatory compliance" onmouseover="disableDefaultTooltip(this)">Legal</td>
-<td><input type="number" id="legalJan" oninput="calculateTotals()"></td>
-<td><input type="number" id="legalFeb" oninput="calculateTotals()"></td>
-<td><input type="number" id="legalMar" oninput="calculateTotals()"></td>
-<td><input type="number" id="legalApr" oninput="calculateTotals()"></td>
-<td><input type="number" id="legalMay" oninput="calculateTotals()"></td>
-<td><input type="number" id="legalJun" oninput="calculateTotals()"></td>
-<td><input type="number" id="legalJul" oninput="calculateTotals()"></td>
-<td><input type="number" id="legalAug" oninput="calculateTotals()"></td>
-<td><input type="number" id="legalSep" oninput="calculateTotals()"></td>
-<td><input type="number" id="legalOct" oninput="calculateTotals()"></td>
-<td><input type="number" id="legalNov" oninput="calculateTotals()"></td>
-<td><input type="number" id="legalDec" oninput="calculateTotals()"></td>
+<td><input type="number" id="legal1" oninput="calculateTotals()"></td>
+<td><input type="number" id="legal2" oninput="calculateTotals()"></td>
+<td><input type="number" id="legal3" oninput="calculateTotals()"></td>
+<td><input type="number" id="legal4" oninput="calculateTotals()"></td>
+<td><input type="number" id="legal5" oninput="calculateTotals()"></td>
+<td><input type="number" id="legal6" oninput="calculateTotals()"></td>
+<td><input type="number" id="legal7" oninput="calculateTotals()"></td>
+<td><input type="number" id="legal8" oninput="calculateTotals()"></td>
+<td><input type="number" id="legal9" oninput="calculateTotals()"></td>
+<td><input type="number" id="legal10" oninput="calculateTotals()"></td>
+<td><input type="number" id="legal11" oninput="calculateTotals()"></td>
+<td><input type="number" id="legal12" oninput="calculateTotals()"></td>
 </tr>
 <tr>
 <td class="category tooltip" title="Costs for other expenses incurred that are not captured elsewhere" onmouseover="disableDefaultTooltip(this)">Other</td>
-<td><input type="number" id="otherJan" oninput="calculateTotals()"></td>
-<td><input type="number" id="otherFeb" oninput="calculateTotals()"></td>
-<td><input type="number" id="otherMar" oninput="calculateTotals()"></td>
-<td><input type="number" id="otherApr" oninput="calculateTotals()"></td>
-<td><input type="number" id="otherMay" oninput="calculateTotals()"></td>
-<td><input type="number" id="otherJun" oninput="calculateTotals()"></td>
-<td><input type="number" id="otherJul" oninput="calculateTotals()"></td>
-<td><input type="number" id="otherAug" oninput="calculateTotals()"></td>
-<td><input type="number" id="otherSep" oninput="calculateTotals()"></td>
-<td><input type="number" id="otherOct" oninput="calculateTotals()"></td>
-<td><input type="number" id="otherNov" oninput="calculateTotals()"></td>
-<td><input type="number" id="otherDec" oninput="calculateTotals()"></td>
+<td><input type="number" id="other1" oninput="calculateTotals()"></td>
+<td><input type="number" id="other2" oninput="calculateTotals()"></td>
+<td><input type="number" id="other3" oninput="calculateTotals()"></td>
+<td><input type="number" id="other4" oninput="calculateTotals()"></td>
+<td><input type="number" id="other5" oninput="calculateTotals()"></td>
+<td><input type="number" id="other6" oninput="calculateTotals()"></td>
+<td><input type="number" id="other7" oninput="calculateTotals()"></td>
+<td><input type="number" id="other8" oninput="calculateTotals()"></td>
+<td><input type="number" id="other9" oninput="calculateTotals()"></td>
+<td><input type="number" id="other10" oninput="calculateTotals()"></td>
+<td><input type="number" id="other11" oninput="calculateTotals()"></td>
+<td><input type="number" id="other12" oninput="calculateTotals()"></td>
 </tr>
   </tr>
 <td class="category"><strong>Total Expenses</strong></td>
-<td class="readonly-cell total-expenses" id="totalExpensesJan"></td>
-<td class="readonly-cell total-expenses" id="totalExpensesFeb"></td>
-<td class="readonly-cell total-expenses" id="totalExpensesMar"></td>
-<td class="readonly-cell total-expenses" id="totalExpensesApr"></td>
-<td class="readonly-cell total-expenses" id="totalExpensesMay"></td>
-<td class="readonly-cell total-expenses" id="totalExpensesJun"></td>
-<td class="readonly-cell total-expenses" id="totalExpensesJul"></td>
-<td class="readonly-cell total-expenses" id="totalExpensesAug"></td>
-<td class="readonly-cell total-expenses" id="totalExpensesSep"></td>
-<td class="readonly-cell total-expenses" id="totalExpensesOct"></td>
-<td class="readonly-cell total-expenses" id="totalExpensesNov"></td>
-<td class="readonly-cell total-expenses" id="totalExpensesDec"></td>
+<td class="readonly-cell total-expenses" id="totalExpenses1"></td>
+<td class="readonly-cell total-expenses" id="totalExpenses2"></td>
+<td class="readonly-cell total-expenses" id="totalExpenses3"></td>
+<td class="readonly-cell total-expenses" id="totalExpenses4"></td>
+<td class="readonly-cell total-expenses" id="totalExpenses5"></td>
+<td class="readonly-cell total-expenses" id="totalExpenses6"></td>
+<td class="readonly-cell total-expenses" id="totalExpenses7"></td>
+<td class="readonly-cell total-expenses" id="totalExpenses8"></td>
+<td class="readonly-cell total-expenses" id="totalExpenses9"></td>
+<td class="readonly-cell total-expenses" id="totalExpenses10"></td>
+<td class="readonly-cell total-expenses" id="totalExpenses11"></td>
+<td class="readonly-cell total-expenses" id="totalExpenses12"></td>
 </tr>
 <tr>
 <td class="category"><strong>Net Income</strong></td>
-<td class="readonly-cell net-income" id="netIncomeJan"></td>
-<td class="readonly-cell net-income" id="netIncomeFeb"></td>
-<td class="readonly-cell net-income" id="netIncomeMar"></td>
-<td class="readonly-cell net-income" id="netIncomeApr"></td>
-<td class="readonly-cell net-income" id="netIncomeMay"></td>
-<td class="readonly-cell net-income" id="netIncomeJun"></td>
-<td class="readonly-cell net-income" id="netIncomeJul"></td>
-<td class="readonly-cell net-income" id="netIncomeAug"></td>
-<td class="readonly-cell net-income" id="netIncomeSep"></td>
-<td class="readonly-cell net-income" id="netIncomeOct"></td>
-<td class="readonly-cell net-income" id="netIncomeNov"></td>
-<td class="readonly-cell net-income" id="netIncomeDec"></td>
+<td class="readonly-cell net-income" id="netIncome1"></td>
+<td class="readonly-cell net-income" id="netIncome2"></td>
+<td class="readonly-cell net-income" id="netIncome3"></td>
+<td class="readonly-cell net-income" id="netIncome4"></td>
+<td class="readonly-cell net-income" id="netIncome5"></td>
+<td class="readonly-cell net-income" id="netIncome6"></td>
+<td class="readonly-cell net-income" id="netIncome7"></td>
+<td class="readonly-cell net-income" id="netIncome8"></td>
+<td class="readonly-cell net-income" id="netIncome9"></td>
+<td class="readonly-cell net-income" id="netIncome10"></td>
+<td class="readonly-cell net-income" id="netIncome11"></td>
+<td class="readonly-cell net-income" id="netIncome12"></td>
 </tr>
 <tr>
 <td class="category"><strong>Cash Burndown</strong></td>
-<td class="readonly-cell cash-burndown" id="cashBurndownJan"></td>
-<td class="readonly-cell cash-burndown" id="cashBurndownFeb"></td>
-<td class="readonly-cell cash-burndown" id="cashBurndownMar"></td>
-<td class="readonly-cell cash-burndown" id="cashBurndownApr"></td>
-<td class="readonly-cell cash-burndown" id="cashBurndownMay"></td>
-<td class="readonly-cell cash-burndown" id="cashBurndownJun"></td>
-<td class="readonly-cell cash-burndown" id="cashBurndownJul"></td>
-<td class="readonly-cell cash-burndown" id="cashBurndownAug"></td>
-<td class="readonly-cell cash-burndown" id="cashBurndownSep"></td>
-<td class="readonly-cell cash-burndown" id="cashBurndownOct"></td>
-<td class="readonly-cell cash-burndown" id="cashBurndownNov"></td>
-<td class="readonly-cell cash-burndown" id="cashBurndownDec"></td>
+<td class="readonly-cell cash-burndown" id="cashBurndown1"></td>
+<td class="readonly-cell cash-burndown" id="cashBurndown2"></td>
+<td class="readonly-cell cash-burndown" id="cashBurndown3"></td>
+<td class="readonly-cell cash-burndown" id="cashBurndown4"></td>
+<td class="readonly-cell cash-burndown" id="cashBurndown5"></td>
+<td class="readonly-cell cash-burndown" id="cashBurndown6"></td>
+<td class="readonly-cell cash-burndown" id="cashBurndown7"></td>
+<td class="readonly-cell cash-burndown" id="cashBurndown8"></td>
+<td class="readonly-cell cash-burndown" id="cashBurndown9"></td>
+<td class="readonly-cell cash-burndown" id="cashBurndow10"></td>
+<td class="readonly-cell cash-burndown" id="cashBurndown11"></td>
+<td class="readonly-cell cash-burndown" id="cashBurndown12"></td>
 </tr>
 <tr>
 <td class="category"><strong>Runway (Months)</strong></td>
-<td class="readonly-cell runway" id="runwayJan"></td>
-<td class="readonly-cell runway" id="runwayFeb"></td>
-<td class="readonly-cell runway" id="runwayMar"></td>
-<td class="readonly-cell runway" id="runwayApr"></td>
-<td class="readonly-cell runway" id="runwayMay"></td>
-<td class="readonly-cell runway" id="runwayJun"></td>
-<td class="readonly-cell runway" id="runwayJul"></td>
-<td class="readonly-cell runway" id="runwayAug"></td>
-<td class="readonly-cell runway" id="runwaySep"></td>
-<td class="readonly-cell runway" id="runwayOct"></td>
-<td class="readonly-cell runway" id="runwayNov"></td>
-<td class="readonly-cell runway" id="runwayDec"></td>
+<td class="readonly-cell runway" id="runway1"></td>
+<td class="readonly-cell runway" id="runway2"></td>
+<td class="readonly-cell runway" id="runway3"></td>
+<td class="readonly-cell runway" id="runway4"></td>
+<td class="readonly-cell runway" id="runway5"></td>
+<td class="readonly-cell runway" id="runway6"></td>
+<td class="readonly-cell runway" id="runway7"></td>
+<td class="readonly-cell runway" id="runway8"></td>
+<td class="readonly-cell runway" id="runway9"></td>
+<td class="readonly-cell runway" id="runway10"></td>
+<td class="readonly-cell runway" id="runway11"></td>
+<td class="readonly-cell runway" id="runway12"></td>
 </tr>
 
   </table>
