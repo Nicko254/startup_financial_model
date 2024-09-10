@@ -387,41 +387,49 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Keep the existing exportToExcel function here
 
-  function exportToExcel() {
+ function exportToExcel() {
+  let csvContent = 'sep=,\n';  // Excel-specific CSV separator
+  csvContent += 'Category,1,2,3,4,5,6,7,8,9,10,11,12\n';
+  
   let table = document.querySelector('table');
   let rows = Array.from(table.rows);
-  let csvContent = 'Category,1,2,3,4,5,6,7,8,9,10,11,12\n';
-  
+
   rows.forEach((row, rowIndex) => {
+    if (rowIndex === 0) return; // Skip the first row (duplicate header)
+    
     let cells = Array.from(row.cells);
     let rowContent = cells.map((cell, cellIndex) => {
-      if (rowIndex === 0) return cell.innerText; // Header row
-      if (cellIndex === 0) return cell.innerText; // Category column
+      let content = cell.innerText.trim();
+      
+      // Apply basic formatting
+      if (content === 'Money Received' || content === 'Expenses') {
+        return `"${content}",,,,,,,,,,,,`; // Merge cells for headers
+      }
+      
+      if (cellIndex === 0) return `"${content}"`; // Quote text in the first column
       
       let input = cell.querySelector('input');
-      if (input) return input.value || '0'; // Input cells
+      if (input) {
+        return input.value || '0'; // Use input value or 0 for empty cells
+      }
       
-      // For calculated cells, return formulas
+      // For calculated cells, use Excel formulas
       if (row.classList.contains('total-expenses')) {
-        return `=SUM(B${rowIndex-3}:B${rowIndex-1})`;
+        return `=SUM(B${rowIndex+1}:M${rowIndex+1})`;
       }
-      if (row.classList.contains('net-income')) {
-        return `=B${rowIndex-5}-B${rowIndex-1}`;
+      if (content === 'Net Income') {
+        return `=B8-B17`; // Assuming Total Received is row 8 and Total Expenses is row 17
       }
-      if (row.classList.contains('cash-burndown')) {
-        if (cellIndex === 1) {
-          return `=$A$2+B${rowIndex-1}`;
-        } else {
-          let prevCol = String.fromCharCode(64 + cellIndex); // Convert number to letter
-          return `=${prevCol}${rowIndex}+B${rowIndex-1}`;
-        }
+      if (content === 'Cash Burndown') {
+        return (cellIndex === 1) ? `=$A$2+B18` : `=M${rowIndex}+B18`; // Assuming Net Income is row 18
       }
-      if (row.classList.contains('runway')) {
-        return `=IF(B${rowIndex-3}>0, B${rowIndex-1}/B${rowIndex-3}, "N/A")`;
+      if (content === 'Runway (Months)') {
+        return `=IF(B17>0, B19/B17, "N/A")`; // Assuming Total Expenses is row 17 and Cash Burndown is row 19
       }
       
-      return cell.innerText || '0';
+      return content || '0';
     }).join(',');
+    
     csvContent += rowContent + '\n';
   });
 
