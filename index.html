@@ -225,19 +225,19 @@
 <td><input type="number" id="marketing12" oninput="calculateTotals()"></td>
 </tr>
 <tr>
-<td class="category tooltip" title="Costs for legal services, licenses, and regulatory compliance" onmouseover="disableDefaultTooltip(this)">Legal</td>
-<td><input type="number" id="legal1" oninput="calculateTotals()"></td>
-<td><input type="number" id="legal2" oninput="calculateTotals()"></td>
-<td><input type="number" id="legal3" oninput="calculateTotals()"></td>
-<td><input type="number" id="legal4" oninput="calculateTotals()"></td>
-<td><input type="number" id="legal5" oninput="calculateTotals()"></td>
-<td><input type="number" id="legal6" oninput="calculateTotals()"></td>
-<td><input type="number" id="legal7" oninput="calculateTotals()"></td>
-<td><input type="number" id="legal8" oninput="calculateTotals()"></td>
-<td><input type="number" id="legal9" oninput="calculateTotals()"></td>
-<td><input type="number" id="legal10" oninput="calculateTotals()"></td>
-<td><input type="number" id="legal11" oninput="calculateTotals()"></td>
-<td><input type="number" id="legal12" oninput="calculateTotals()"></td>
+  <td class="category tooltip" title="Costs for professional services like accounting, legal, consulting" onmouseover="disableDefaultTooltip(this)">Professional Fees</td>
+  <td><input type="number" id="professionalFees1" oninput="calculateTotals()"></td>
+  <td><input type="number" id="professionalFees2" oninput="calculateTotals()"></td>
+  <td><input type="number" id="professionalFees3" oninput="calculateTotals()"></td>
+  <td><input type="number" id="professionalFees4" oninput="calculateTotals()"></td>
+  <td><input type="number" id="professionalFees5" oninput="calculateTotals()"></td>
+  <td><input type="number" id="professionalFees6" oninput="calculateTotals()"></td>
+  <td><input type="number" id="professionalFees7" oninput="calculateTotals()"></td>
+  <td><input type="number" id="professionalFees8" oninput="calculateTotals()"></td>
+  <td><input type="number" id="professionalFees9" oninput="calculateTotals()"></td>
+  <td><input type="number" id="professionalFees10" oninput="calculateTotals()"></td>
+  <td><input type="number" id="professionalFees11" oninput="calculateTotals()"></td>
+  <td><input type="number" id="professionalFees12" oninput="calculateTotals()"></td>
 </tr>
 <tr>
 <td class="category tooltip" title="Costs for other expenses incurred that are not captured elsewhere" onmouseover="disableDefaultTooltip(this)">Other</td>
@@ -339,7 +339,7 @@ function calculateTotals() {
     });
 
     // Calculate total expenses
-    ['cogs', 'rent', 'salaries', 'utilities', 'marketing', 'legal', 'other'].forEach(category => {
+    ['cogs', 'rent', 'salaries', 'utilities', 'marketing', 'professionalFees', 'other'].forEach(category => {
       totalExpenses += parseFloat(document.getElementById(category + month).value) || 0;
     });
 
