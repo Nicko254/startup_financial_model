@@ -392,6 +392,11 @@ function exportToExcel() {
   const wb = XLSX.utils.book_new();
   const ws_data = [];
 
+  // Add Starting Investment
+  const startingInvestment = parseFloat(document.getElementById('startingInvestment').value) || 0;
+  ws_data.push(['Starting Investment', startingInvestment]);
+  ws_data.push([]); // Empty row for spacing
+
   // Add headers
   ws_data.push(['Category', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']);
 
@@ -414,15 +419,20 @@ function exportToExcel() {
           rowData.push(parseFloat(input.value) || 0);
         } else {
           // For calculated cells, use Excel formulas
-          const cellAddress = XLSX.utils.encode_cell({r: rowIndex, c: cellIndex});
+          const cellAddress = XLSX.utils.encode_cell({r: rowIndex + 2, c: cellIndex}); // +2 because of Starting Investment and empty row
           if (row.classList.contains('total-expenses')) {
-            rowData.push({f: `SUM(B${rowIndex+1}:M${rowIndex+1})`});
+            rowData.push({f: `SUM(B${rowIndex+3}:M${rowIndex+3})`});
           } else if (cell.classList.contains('net-income')) {
-            rowData.push({f: `B8-B17`}); // Adjust row numbers as needed
+            rowData.push({f: `B10-B19`}); // Adjust row numbers as needed
           } else if (cell.classList.contains('cash-burndown')) {
-            rowData.push({f: cellIndex === 1 ? `$A$2+B18` : `${XLSX.utils.encode_col(cellIndex-1)}${rowIndex+1}+B18`});
+            if (cellIndex === 1) {
+              rowData.push({f: `$B$1+B20`}); // Use Starting Investment for first month
+            } else {
+              const prevCol = XLSX.utils.encode_col(cellIndex - 2);
+              rowData.push({f: `${prevCol}21+B20`}); // Use previous month's Cash Burndown + current month's Net Income
+            }
           } else if (cell.classList.contains('runway')) {
-            rowData.push({f: `IF(B17>0, B19/B17, "N/A")`});
+            rowData.push({f: `IF(B19>0, B21/B19, "N/A")`});
           } else {
             rowData.push(cell.innerText);
           }
@@ -437,7 +447,7 @@ function exportToExcel() {
   const ws = XLSX.utils.aoa_to_sheet(ws_data);
 
   // Set column widths
-  const cols = ws_data[0].map((_, i) => ({ wch: i === 0 ? 20 : 12 }));
+  const cols = ws_data[2].map((_, i) => ({ wch: i === 0 ? 20 : 12 }));
   ws['!cols'] = cols;
 
   // Add the worksheet to the workbook
