@@ -421,20 +421,20 @@ function exportToExcel() {
           const colLetter = XLSX.utils.encode_col(cellIndex);
           
           if (row.cells[0].innerText.trim() === 'Total Received') {
-            rowData.push({f: `SUM(${colLetter}${rowIndex-2}:${colLetter}${rowIndex})`});
+            rowData.push({f: `SUM(${colLetter}4:${colLetter}6)`});
           } else if (row.cells[0].innerText.trim() === 'Total Expenses') {
-            rowData.push({f: `SUM(${colLetter}${rowIndex-6}:${colLetter}${rowIndex})`});
+            rowData.push({f: `SUM(${colLetter}9:${colLetter}15)`});
           } else if (row.cells[0].innerText.trim() === 'Net Income') {
-            rowData.push({f: `${colLetter}${rowIndex-3}-${colLetter}${rowIndex-1}`});
+            rowData.push({f: `${colLetter}7-${colLetter}16`});
           } else if (row.cells[0].innerText.trim() === 'Cash Burndown') {
             if (cellIndex === 1) {
-              rowData.push({f: `$B$1+${colLetter}${rowIndex+1}`});
+              rowData.push({f: `$B$1+${colLetter}17`});
             } else {
               const prevCol = XLSX.utils.encode_col(cellIndex - 2);
-              rowData.push({f: `${prevCol}${rowIndex+2}+${colLetter}${rowIndex+1}`});
+              rowData.push({f: `${prevCol}18+${colLetter}17`});
             }
           } else if (row.cells[0].innerText.trim() === 'Runway (Months)') {
-            rowData.push({f: `IF(${colLetter}${rowIndex-2}>0, ${colLetter}${rowIndex}/${colLetter}${rowIndex-2}, "N/A")`});
+            rowData.push({f: `IF(${colLetter}16>0, ${colLetter}18/${colLetter}16, "N/A")`});
           } else {
             rowData.push(cell.innerText);
           }
