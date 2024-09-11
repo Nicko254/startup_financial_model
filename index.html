@@ -421,10 +421,10 @@ function exportToExcel() {
           const colLetter = XLSX.utils.encode_col(cellIndex - 1);
           const actualRow = rowIndex + 3; // Adjusting for Starting Investment and header rows
 
-          if (cell.classList.contains('total-expenses')) {
-            rowData.push({f: `SUM(${colLetter}11:${colLetter}17)`}); // Sum of COGs to Other
-          } else if (row.classList.contains('total-received')) {
+          if (row.classList.contains('total-received')) {
             rowData.push({f: `SUM(${colLetter}6:${colLetter}8)`}); // Sum of Sales to Investment Received
+          } else if (cell.classList.contains('total-expenses')) {
+            rowData.push({f: `SUM(${colLetter}11:${colLetter}17)`}); // Sum of COGs to Other
           } else if (cell.classList.contains('net-income')) {
             rowData.push({f: `${colLetter}9-${colLetter}18`}); // Total Received - Total Expenses
           } else if (cell.classList.contains('cash-burndown')) {
