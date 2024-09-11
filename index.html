@@ -361,21 +361,7 @@ function calculateTotals() {
   });
 }
 
-function disableDefaultTooltip(element) {
-  if (!element.getAttribute('data-title')) {
-    element.setAttribute('data-title', element.getAttribute('title'));
-    element.removeAttribute('title');
-  }
-}
-
-function enableDefaultTooltip(element) {
-  if (element.getAttribute('data-title')) {
-    element.setAttribute('title', element.getAttribute('data-title'));
-    element.removeAttribute('data-title');
-  }
-}
-
-// Add event listeners to all input fields
+// Make sure this function is called when the page loads and when any input changes
 document.addEventListener('DOMContentLoaded', function() {
   document.querySelectorAll('input[type="number"]').forEach(input => {
     input.addEventListener('input', calculateTotals);
