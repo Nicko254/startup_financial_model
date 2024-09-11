@@ -420,7 +420,7 @@ function exportToExcel() {
           // For calculated cells, use Excel formulas
           const colLetter = XLSX.utils.encode_col(cellIndex);
           
-          if (row.classList.contains('total-received')) {
+          if (cell.classList.contains('total-received')) {
             rowData.push({f: `SUM(${colLetter}6:${colLetter}8)`});
           } else if (cell.classList.contains('total-expenses')) {
             rowData.push({f: `SUM(${colLetter}11:${colLetter}17)`});
