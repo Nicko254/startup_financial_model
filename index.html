@@ -404,7 +404,7 @@ function exportToExcel() {
   const rows = Array.from(table.rows);
 
   rows.forEach((row, rowIndex) => {
-    if (rowIndex === 0) return; // Skip the table header row
+    if (rowIndex <= 2) return; // Skip the first three rows (header and Money Received header)
     
     const rowData = [];
     const cells = Array.from(row.cells);
@@ -420,21 +420,21 @@ function exportToExcel() {
           // For calculated cells, use Excel formulas
           const colLetter = XLSX.utils.encode_col(cellIndex);
           
-          if (cell.classList.contains('total-received')) {
-            rowData.push({f: `SUM(${colLetter}6:${colLetter}8)`});
-          } else if (cell.classList.contains('total-expenses')) {
-            rowData.push({f: `SUM(${colLetter}11:${colLetter}17)`});
-          } else if (cell.classList.contains('net-income')) {
-            rowData.push({f: `${colLetter}9-${colLetter}18`});
-          } else if (cell.classList.contains('cash-burndown')) {
+          if (row.cells[0].innerText.trim() === 'Total Received') {
+            rowData.push({f: `SUM(${colLetter}${rowIndex-2}:${colLetter}${rowIndex})`});
+          } else if (row.cells[0].innerText.trim() === 'Total Expenses') {
+            rowData.push({f: `SUM(${colLetter}${rowIndex-6}:${colLetter}${rowIndex})`});
+          } else if (row.cells[0].innerText.trim() === 'Net Income') {
+            rowData.push({f: `${colLetter}${rowIndex-3}-${colLetter}${rowIndex-1}`});
+          } else if (row.cells[0].innerText.trim() === 'Cash Burndown') {
             if (cellIndex === 1) {
-              rowData.push({f: `$B$1+${colLetter}19`});
+              rowData.push({f: `$B$1+${colLetter}${rowIndex+1}`});
             } else {
               const prevCol = XLSX.utils.encode_col(cellIndex - 2);
-              rowData.push({f: `${prevCol}20+${colLetter}19`});
+              rowData.push({f: `${prevCol}${rowIndex+2}+${colLetter}${rowIndex+1}`});
             }
-          } else if (cell.classList.contains('runway')) {
-            rowData.push({f: `IF(${colLetter}18>0, ${colLetter}20/${colLetter}18, "N/A")`});
+          } else if (row.cells[0].innerText.trim() === 'Runway (Months)') {
+            rowData.push({f: `IF(${colLetter}${rowIndex-2}>0, ${colLetter}${rowIndex}/${colLetter}${rowIndex-2}, "N/A")`});
           } else {
             rowData.push(cell.innerText);
           }
