@@ -337,41 +337,60 @@ function calculateTotals() {
 
     // Calculate total received
     ['sales', 'otherIncome', 'investments'].forEach(category => {
-      let value = parseFloat(document.getElementById(category + month).value) || 0;
-      console.log(`${category}${month}:`, value);
-      totalReceived += value;
+      let element = document.getElementById(category + month);
+      if (element) {
+        let value = parseFloat(element.value) || 0;
+        console.log(`${category}${month}:`, value);
+        totalReceived += value;
+      } else {
+        console.error(`Element not found: ${category}${month}`);
+      }
     });
 
     // Calculate total expenses
     ['cogs', 'rent', 'salaries', 'utilities', 'marketing', 'professionalFees', 'other'].forEach(category => {
-      let value = parseFloat(document.getElementById(category + month).value) || 0;
-      console.log(`${category}${month}:`, value);
-      totalExpenses += value;
+      let element = document.getElementById(category + month);
+      if (element) {
+        let value = parseFloat(element.value) || 0;
+        console.log(`${category}${month}:`, value);
+        totalExpenses += value;
+      } else {
+        console.error(`Element not found: ${category}${month}`);
+      }
     });
 
     console.log(`Month ${month} - Total Received:`, totalReceived);
     console.log(`Month ${month} - Total Expenses:`, totalExpenses);
 
     // Update totals in the table
-    document.getElementById('totalReceived' + month).innerText = totalReceived.toFixed(2);
-    document.getElementById('totalExpenses' + month).innerText = totalExpenses.toFixed(2);
+    updateElement('totalReceived' + month, totalReceived.toFixed(2));
+    updateElement('totalExpenses' + month, totalExpenses.toFixed(2));
 
     // Calculate and update net income
     let netIncome = totalReceived - totalExpenses;
-    document.getElementById('netIncome' + month).innerText = netIncome.toFixed(2);
+    updateElement('netIncome' + month, netIncome.toFixed(2));
 
     // Update cash burndown
     let cashBurndown = startingInvestment + netIncome;
-    document.getElementById('cashBurndown' + month).innerText = cashBurndown.toFixed(2);
+    updateElement('cashBurndown' + month, cashBurndown.toFixed(2));
 
     // Calculate and update runway
     let runway = totalExpenses > 0 ? (cashBurndown / totalExpenses).toFixed(2) : 'N/A';
-    document.getElementById('runway' + month).innerText = runway;
+    updateElement('runway' + month, runway);
 
     console.log(`Month ${month} calculations complete`);
   });
 
   console.log("calculateTotals function finished");
+}
+
+function updateElement(id, value) {
+  let element = document.getElementById(id);
+  if (element) {
+    element.innerText = value;
+  } else {
+    console.error(`Element not found: ${id}`);
+  }
 }
 
 // Event Listeners
