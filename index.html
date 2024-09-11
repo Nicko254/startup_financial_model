@@ -87,7 +87,7 @@
   <td colspan="13"><strong>Money Received</strong></td>
 </tr>
 <tr>
-  <td class="category tooltip" title="Revenue from product or service sales" onmouseover="disableDefaultTooltip(this)">Sales</td>
+  <td class="category tooltip" title="Revenue from product or service sales">Sales</td>
   <td><input type="number" id="sales1" oninput="calculateTotals()"></td>
   <td><input type="number" id="sales2" oninput="calculateTotals()"></td>
   <td><input type="number" id="sales3" oninput="calculateTotals()"></td>
@@ -102,7 +102,7 @@
   <td><input type="number" id="sales12" oninput="calculateTotals()"></td>
 </tr>
 <tr>
-  <td class="category tooltip" title="Income from sources other than sales" onmouseover="disableDefaultTooltip(this)">Other Income</td>
+  <td class="category tooltip" title="Income from sources other than sales">Other Income</td>
   <td><input type="number" id="otherIncome1" oninput="calculateTotals()"></td>
   <td><input type="number" id="otherIncome2" oninput="calculateTotals()"></td>
   <td><input type="number" id="otherIncome3" oninput="calculateTotals()"></td>
@@ -117,7 +117,7 @@
   <td><input type="number" id="otherIncome12" oninput="calculateTotals()"></td>
 </tr>
 <tr>
-  <td class="category tooltip" title="Funds received from investors" onmouseover="disableDefaultTooltip(this)">Investment Received</td>
+  <td class="category tooltip" title="Funds received from investors">Investment Received</td>
   <td><input type="number" id="investments1" oninput="calculateTotals()"></td>
   <td><input type="number" id="investments2" oninput="calculateTotals()"></td>
   <td><input type="number" id="investments3" oninput="calculateTotals()"></td>
@@ -150,7 +150,7 @@
   <td colspan="13"><strong>Expenses</strong></td>
 </tr>
 <tr>
-  <td class="category tooltip" title="Direct costs of producing goods sold" onmouseover="disableDefaultTooltip(this)">COGs</td>
+  <td class="category tooltip" title="Direct costs of producing goods sold">COGs</td>
   <td><input type="number" id="cogs1" oninput="calculateTotals()"></td>
   <td><input type="number" id="cogs2" oninput="calculateTotals()"></td>
   <td><input type="number" id="cogs3" oninput="calculateTotals()"></td>
@@ -165,7 +165,7 @@
   <td><input type="number" id="cogs12" oninput="calculateTotals()"></td>
 </tr>
 <tr>
-  <td class="category tooltip" title="Monthly rent for office or workspace" onmouseover="disableDefaultTooltip(this)">Rent</td>
+  <td class="category tooltip" title="Monthly rent for office or workspace">Rent</td>
   <td><input type="number" id="rent1" oninput="calculateTotals()"></td>
   <td><input type="number" id="rent2" oninput="calculateTotals()"></td>
   <td><input type="number" id="rent3" oninput="calculateTotals()"></td>
@@ -180,7 +180,7 @@
   <td><input type="number" id="rent12" oninput="calculateTotals()"></td>
 </tr>
 <tr>
-<td class="category tooltip" title="Salaries paid to employees" onmouseover="disableDefaultTooltip(this)">Salaries</td>
+<td class="category tooltip" title="Salaries paid to employees">Salaries</td>
 <td><input type="number" id="salaries1" oninput="calculateTotals()"></td>
 <td><input type="number" id="salaries2" oninput="calculateTotals()"></td>
 <td><input type="number" id="salaries3" oninput="calculateTotals()"></td>
@@ -195,7 +195,7 @@
 <td><input type="number" id="salaries12" oninput="calculateTotals()"></td>
 </tr>
 <tr>
-<td class="category tooltip" title="Costs for electricity, water, internet, and other basic services" onmouseover="disableDefaultTooltip(this)">Utilities</td>
+<td class="category tooltip" title="Costs for electricity, water, internet, and other basic services">Utilities</td>
 <td><input type="number" id="utilities1" oninput="calculateTotals()"></td>
 <td><input type="number" id="utilities2" oninput="calculateTotals()"></td>
 <td><input type="number" id="utilities3" oninput="calculateTotals()"></td>
@@ -210,7 +210,7 @@
 <td><input type="number" id="utilities12" oninput="calculateTotals()"></td>
 </tr>
 <tr>
-<td class="category tooltip" title="Expenses for advertising, promotions, and other marketing activities" onmouseover="disableDefaultTooltip(this)">Marketing</td>
+<td class="category tooltip" title="Expenses for advertising, promotions, and other marketing activities">Marketing</td>
 <td><input type="number" id="marketing1" oninput="calculateTotals()"></td>
 <td><input type="number" id="marketing2" oninput="calculateTotals()"></td>
 <td><input type="number" id="marketing3" oninput="calculateTotals()"></td>
@@ -225,7 +225,7 @@
 <td><input type="number" id="marketing12" oninput="calculateTotals()"></td>
 </tr>
 <tr>
-  <td class="category tooltip" title="Costs for professional services like accounting, legal, consulting" onmouseover="disableDefaultTooltip(this)">Professional Fees</td>
+  <td class="category tooltip" title="Costs for professional services like accounting, legal, consulting">Professional Fees</td>
   <td><input type="number" id="professionalFees1" oninput="calculateTotals()"></td>
   <td><input type="number" id="professionalFees2" oninput="calculateTotals()"></td>
   <td><input type="number" id="professionalFees3" oninput="calculateTotals()"></td>
@@ -240,7 +240,7 @@
   <td><input type="number" id="professionalFees12" oninput="calculateTotals()"></td>
 </tr>
 <tr>
-<td class="category tooltip" title="Costs for other expenses incurred that are not captured elsewhere" onmouseover="disableDefaultTooltip(this)">Other</td>
+<td class="category tooltip" title="Costs for other expenses incurred that are not captured elsewhere">Other</td>
 <td><input type="number" id="other1" oninput="calculateTotals()"></td>
 <td><input type="number" id="other2" oninput="calculateTotals()"></td>
 <td><input type="number" id="other3" oninput="calculateTotals()"></td>
@@ -488,9 +488,21 @@ function exportToExcel() {
       for (let c = 0; c < ws_data[rowIndex].length; c++) {
         const cellRef = XLSX.utils.encode_cell({r: rowIndex, c: c});
         ws[cellRef].s = label.includes('Total') || label === 'Net Income' || label === 'Cash Burndown' || label === 'Runway (Months)' ? totalStyle : subHeaderStyle;
-      }
-    }
+   document.addEventListener('DOMContentLoaded', function() {
+  const tooltips = document.querySelectorAll('.tooltip');
+  tooltips.forEach(tooltip => {
+    tooltip.addEventListener('mouseenter', function() {
+      const title = this.getAttribute('title');
+      this.setAttribute('data-title', title);
+      this.removeAttribute('title');
+    });
+    tooltip.addEventListener('mouseleave', function() {
+      const title = this.getAttribute('data-title');
+      this.setAttribute('title', title);
+      this.removeAttribute('data-title');
+    });
   });
+});
 
   // Add the worksheet to the workbook
   XLSX.utils.book_append_sheet(wb, ws, "Financial Forecast");
