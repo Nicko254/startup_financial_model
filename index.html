@@ -325,44 +325,58 @@ function formatNumber(num) {
 }
 
 function calculateTotals() {
+  console.log("calculateTotals function called");
   const months = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
   let startingInvestment = parseFloat(document.getElementById('startingInvestment').value) || 0;
-  let cumulativeCash = startingInvestment;
+  console.log("Starting Investment:", startingInvestment);
 
   months.forEach(month => {
+    console.log("Processing month:", month);
     let totalReceived = 0;
     let totalExpenses = 0;
 
     // Calculate total received
     ['sales', 'otherIncome', 'investments'].forEach(category => {
-      totalReceived += parseFloat(document.getElementById(category + month).value) || 0;
+      let value = parseFloat(document.getElementById(category + month).value) || 0;
+      console.log(`${category}${month}:`, value);
+      totalReceived += value;
     });
 
     // Calculate total expenses
     ['cogs', 'rent', 'salaries', 'utilities', 'marketing', 'professionalFees', 'other'].forEach(category => {
-      totalExpenses += parseFloat(document.getElementById(category + month).value) || 0;
+      let value = parseFloat(document.getElementById(category + month).value) || 0;
+      console.log(`${category}${month}:`, value);
+      totalExpenses += value;
     });
 
+    console.log(`Month ${month} - Total Received:`, totalReceived);
+    console.log(`Month ${month} - Total Expenses:`, totalExpenses);
+
     // Update totals in the table
-    document.getElementById('totalReceived' + month).innerText = formatNumber(totalReceived);
-    document.getElementById('totalExpenses' + month).innerText = formatNumber(totalExpenses);
+    document.getElementById('totalReceived' + month).innerText = totalReceived.toFixed(2);
+    document.getElementById('totalExpenses' + month).innerText = totalExpenses.toFixed(2);
 
     // Calculate and update net income
     let netIncome = totalReceived - totalExpenses;
-    document.getElementById('netIncome' + month).innerText = formatNumber(netIncome);
+    document.getElementById('netIncome' + month).innerText = netIncome.toFixed(2);
 
     // Update cash burndown
-    cumulativeCash += netIncome;
-    document.getElementById('cashBurndown' + month).innerText = formatNumber(cumulativeCash);
+    let cashBurndown = startingInvestment + netIncome;
+    document.getElementById('cashBurndown' + month).innerText = cashBurndown.toFixed(2);
 
     // Calculate and update runway
-    let runway = totalExpenses > 0 ? (cumulativeCash / totalExpenses).toFixed(2) : 'N/A';
+    let runway = totalExpenses > 0 ? (cashBurndown / totalExpenses).toFixed(2) : 'N/A';
     document.getElementById('runway' + month).innerText = runway;
+
+    console.log(`Month ${month} calculations complete`);
   });
+
+  console.log("calculateTotals function finished");
 }
 
-// Make sure this function is called when the page loads and when any input changes
+// Event Listeners
 document.addEventListener('DOMContentLoaded', function() {
+  console.log("DOM fully loaded");
   document.querySelectorAll('input[type="number"]').forEach(input => {
     input.addEventListener('input', calculateTotals);
   });
