@@ -388,7 +388,6 @@ document.addEventListener('DOMContentLoaded', function() {
 // Keep the existing exportToExcel function here
 
 function exportToExcel() {
-  // Create a new workbook
   const wb = XLSX.utils.book_new();
   const ws_data = [];
 
@@ -419,20 +418,24 @@ function exportToExcel() {
           rowData.push(parseFloat(input.value) || 0);
         } else {
           // For calculated cells, use Excel formulas
-          const cellAddress = XLSX.utils.encode_cell({r: rowIndex + 2, c: cellIndex}); // +2 because of Starting Investment and empty row
-          if (row.classList.contains('total-expenses')) {
-            rowData.push({f: `SUM(B${rowIndex+3}:M${rowIndex+3})`});
+          const colLetter = XLSX.utils.encode_col(cellIndex - 1);
+          const actualRow = rowIndex + 3; // Adjusting for Starting Investment and header rows
+
+          if (cell.classList.contains('total-expenses')) {
+            rowData.push({f: `SUM(${colLetter}11:${colLetter}17)`}); // Sum of COGs to Other
+          } else if (row.classList.contains('total-received')) {
+            rowData.push({f: `SUM(${colLetter}6:${colLetter}8)`}); // Sum of Sales to Investment Received
           } else if (cell.classList.contains('net-income')) {
-            rowData.push({f: `B10-B19`}); // Adjust row numbers as needed
+            rowData.push({f: `${colLetter}9-${colLetter}18`}); // Total Received - Total Expenses
           } else if (cell.classList.contains('cash-burndown')) {
             if (cellIndex === 1) {
-              rowData.push({f: `$B$1+B20`}); // Use Starting Investment for first month
+              rowData.push({f: `$B$1+${colLetter}19`}); // Starting Investment + Net Income for first month
             } else {
               const prevCol = XLSX.utils.encode_col(cellIndex - 2);
-              rowData.push({f: `${prevCol}21+B20`}); // Use previous month's Cash Burndown + current month's Net Income
+              rowData.push({f: `${prevCol}20+${colLetter}19`}); // Previous Cash Burndown + Current Net Income
             }
           } else if (cell.classList.contains('runway')) {
-            rowData.push({f: `IF(B19>0, B21/B19, "N/A")`});
+            rowData.push({f: `IF(${colLetter}18>0, ${colLetter}20/${colLetter}18, "N/A")`});
           } else {
             rowData.push(cell.innerText);
           }
