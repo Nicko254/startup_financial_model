@@ -452,6 +452,43 @@ function exportToExcel() {
   const cols = ws_data[2].map((_, i) => ({ wch: i === 0 ? 20 : 12 }));
   ws['!cols'] = cols;
 
+  // Add styles
+  const headerStyle = {
+    font: { bold: true },
+    fill: { fgColor: { rgb: "CCCCCC" } },
+    alignment: { horizontal: "center" }
+  };
+
+  const subHeaderStyle = {
+    font: { bold: true },
+    fill: { fgColor: { rgb: "EEEEEE" } }
+  };
+
+  const totalStyle = {
+    font: { bold: true },
+    fill: { fgColor: { rgb: "E6F2FF" } }
+  };
+
+  // Apply styles
+  ['A1', 'A3'].forEach(cellRef => {
+    ws[cellRef].s = headerStyle;
+  });
+
+  // Header row
+  for (let i = 0; i < 13; i++) {
+    const cellRef = XLSX.utils.encode_cell({r: 2, c: i});
+    ws[cellRef].s = headerStyle;
+  }
+
+  // Sub-headers and totals
+  ['Money Received', 'Expenses', 'Total Received', 'Total Expenses', 'Net Income', 'Cash Burndown', 'Runway (Months)'].forEach(label => {
+    const rowIndex = ws_data.findIndex(row => row[0] === label);
+    if (rowIndex !== -1) {
+      const cellRef = XLSX.utils.encode_cell({r: rowIndex, c: 0});
+      ws[cellRef].s = label.includes('Total') || label === 'Net Income' || label === 'Cash Burndown' || label === 'Runway (Months)' ? totalStyle : subHeaderStyle;
+    }
+  });
+
   // Add the worksheet to the workbook
   XLSX.utils.book_append_sheet(wb, ws, "Financial Forecast");
 
