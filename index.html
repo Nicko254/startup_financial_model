@@ -468,7 +468,7 @@ function exportToExcel() {
   const cols = ws_data[2].map((_, i) => ({ wch: i === 0 ? 20 : 12 }));
   ws['!cols'] = cols;
 
-  // Apply basic formatting
+  // Apply formatting
   for (let i = 0; i < ws_data.length; i++) {
     for (let j = 0; j < ws_data[i].length; j++) {
       const cellRef = XLSX.utils.encode_cell({r: i, c: j});
@@ -477,8 +477,14 @@ function exportToExcel() {
       ws[cellRef].s = {
         font: { bold: i <= 2 || j === 0 },
         alignment: { horizontal: "center" },
-        fill: { fgColor: { rgb: i <= 2 ? "CCCCCC" : (i === 7 || i === 16 || i === 17 || i === 18) ? "E6F2FF" : "FFFFFF" } }
+        border: { top: {style: "thin"}, bottom: {style: "thin"}, left: {style: "thin"}, right: {style: "thin"} }
       };
+
+      if (i <= 2) {
+        ws[cellRef].s.fill = { fgColor: { rgb: "CCCCCC" } };
+      } else if (i === 7 || i === 16 || i === 17 || i === 18) {
+        ws[cellRef].s.fill = { fgColor: { rgb: "E6F2FF" } };
+      }
     }
   }
 
@@ -486,7 +492,7 @@ function exportToExcel() {
   XLSX.utils.book_append_sheet(wb, ws, "Financial Forecast");
 
   // Generate Excel file and trigger download
-  XLSX.writeFile(wb, "financial_forecast.xlsx");
+  XLSX.writeFile(wb, "financial_forecast.xlsx", { bookType: 'xlsx', bookSST: false, type: 'binary' });
 }
 // Add the new tooltip functionality here, outside of any other function
 document.addEventListener('DOMContentLoaded', function() {
