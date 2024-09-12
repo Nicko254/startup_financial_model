@@ -404,94 +404,88 @@ document.addEventListener('DOMContentLoaded', function() {
   calculateTotals();
 });
 function exportToExcel() {
-  const wb = XLSX.utils.book_new();
-  const ws_data = [];
+    const wb = XLSX.utils.book_new();
+    const ws_data = [];
 
-  // Add Starting Investment
-  const startingInvestment = parseFloat(document.getElementById('startingInvestment').value) || 0;
-  ws_data.push(['Starting Investment', startingInvestment]);
-  ws_data.push([]); // Empty row for spacing
+    // Add Starting Investment
+    const startingInvestment = parseFloat(document.getElementById('startingInvestment').value) || 0;
+    ws_data.push(['Starting Investment', startingInvestment]);
+    ws_data.push([]); // Empty row for spacing
 
-  // Add headers
-  ws_data.push(['Category', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']);
+    // Add headers
+    ws_data.push(['Category', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']);
 
-  // Get table data
-  const table = document.querySelector('table');
-  const rows = Array.from(table.rows);
-
-  rows.forEach((row, rowIndex) => {
-    if (rowIndex <= 2) return; // Skip the first three rows (header and Money Received header)
-    
-    const rowData = [];
-    const cells = Array.from(row.cells);
-
-    cells.forEach((cell, cellIndex) => {
-      if (cellIndex === 0) {
-        rowData.push(cell.innerText.trim());
-      } else {
-        const input = cell.querySelector('input');
-        if (input) {
-          rowData.push(parseFloat(input.value) || 0);
-        } else {
-          // For calculated cells, use Excel formulas
-          const colLetter = XLSX.utils.encode_col(cellIndex);
-          
-          if (row.cells[0].innerText.trim() === 'Total Received') {
-            rowData.push({f: `SUM(${colLetter}4:${colLetter}6)`});
-          } else if (row.cells[0].innerText.trim() === 'Total Expenses') {
-            rowData.push({f: `SUM(${colLetter}9:${colLetter}15)`});
-          } else if (row.cells[0].innerText.trim() === 'Net Income') {
-            rowData.push({f: `${colLetter}7-${colLetter}16`});
-          } else if (row.cells[0].innerText.trim() === 'Cash Burndown') {
-            if (cellIndex === 1) {
-              rowData.push({f: `$B$1+${colLetter}17`});
+    // Get table data
+    const table = document.querySelector('table');
+    const rows = Array.from(table.rows);
+    rows.forEach((row, rowIndex) => {
+        if (rowIndex <= 2) return; // Skip the first three rows (header and Money Received header)
+        const rowData = [];
+        const cells = Array.from(row.cells);
+        cells.forEach((cell, cellIndex) => {
+            if (cellIndex === 0) {
+                rowData.push(cell.innerText.trim());
             } else {
-              const prevCol = XLSX.utils.encode_col(cellIndex - 1);
-              rowData.push({f: `${prevCol}18+${colLetter}17`});
+                const input = cell.querySelector('input');
+                if (input) {
+                    rowData.push(parseFloat(input.value) || 0);
+                } else {
+                    // For calculated cells, use Excel formulas
+                    const colLetter = XLSX.utils.encode_col(cellIndex);
+                    if (row.cells[0].innerText.trim() === 'Total Received') {
+                        rowData.push({ f: `SUM(${colLetter}4:${colLetter}6)` });
+                    } else if (row.cells[0].innerText.trim() === 'Total Expenses') {
+                        rowData.push({ f: `SUM(${colLetter}9:${colLetter}15)` });
+                    } else if (row.cells[0].innerText.trim() === 'Net Income') {
+                        rowData.push({ f: `${colLetter}7-${colLetter}16` });
+                    } else if (row.cells[0].innerText.trim() === 'Cash Burndown') {
+                        if (cellIndex === 1) {
+                            rowData.push({ f: `$B$1+${colLetter}17` });
+                        } else {
+                            const prevCol = XLSX.utils.encode_col(cellIndex - 1);
+                            rowData.push({ f: `${prevCol}18+${colLetter}17` });
+                        }
+                    } else if (row.cells[0].innerText.trim() === 'Runway (Months)') {
+                        rowData.push({ f: `IF(${colLetter}16>0, ${colLetter}18/${colLetter}16, "N/A")` });
+                    } else {
+                        rowData.push(cell.innerText);
+                    }
+                }
             }
-          } else if (row.cells[0].innerText.trim() === 'Runway (Months)') {
-            rowData.push({f: `IF(${colLetter}16>0, ${colLetter}18/${colLetter}16, "N/A")`});
-          } else {
-            rowData.push(cell.innerText);
-          }
-        }
-      }
+        });
+        ws_data.push(rowData);
     });
 
-    ws_data.push(rowData);
-  });
+    // Create worksheet
+    const ws = XLSX.utils.aoa_to_sheet(ws_data);
 
-  // Create worksheet
-  const ws = XLSX.utils.aoa_to_sheet(ws_data);
+    // Set column widths
+    const cols = ws_data[2].map((_, i) => ({ wch: i === 0 ? 20 : 12 }));
+    ws['!cols'] = cols;
 
-  // Set column widths
-  const cols = ws_data[2].map((_, i) => ({ wch: i === 0 ? 20 : 12 }));
-  ws['!cols'] = cols;
-
-  // Apply basic formatting
-  for (let i = 0; i < ws_data.length; i++) {
-    for (let j = 0; j < ws_data[i].length; j++) {
-      const cellRef = XLSX.utils.encode_cell({r: i, c: j});
-      if (!ws[cellRef]) continue;
-      
-      if (i <= 2 || j === 0) {
-        if (!ws[cellRef].s) ws[cellRef].s = {};
-        ws[cellRef].s.font = { bold: true };
-      }
-      
-      if (i <= 2 || i === 7 || i === 16 || i === 17 || i === 18) {
-        if (!ws[cellRef].s) ws[cellRef].s = {};
-        ws[cellRef].s.fill = { fgColor: { rgb: i <= 2 ? "CCCCCC" : "E6F2FF" } };
-      }
+    // Apply basic formatting
+    for (let i = 0; i < ws_data.length; i++) {
+        for (let j = 0; j < ws_data[i].length; j++) {
+            const cellRef = XLSX.utils.encode_cell({ r: i, c: j });
+            if (!ws[cellRef]) continue;
+            if (i <= 2 || j === 0) {
+                if (!ws[cellRef].s) ws[cellRef].s = {};
+                ws[cellRef].s.font = { bold: true };
+            }
+            if (i <= 2 || i === 7 || i === 16 || i === 17 || i === 18) {
+                if (!ws[cellRef].s) ws[cellRef].s = {};
+                ws[cellRef].s.fill = { fgColor: { rgb: i <= 2 ? "CCCCCC" : "E6F2FF" } };
+            }
+        }
     }
-  }
 
-  // Add the worksheet to the workbook
-  XLSX.utils.book_append_sheet(wb, ws, "Financial Forecast");
+    // Add the worksheet to the workbook
+    XLSX.utils.book_append_sheet(wb, ws, "Financial Forecast");
 
-  // Generate Excel file and trigger download
-  XLSX.writeFile(wb, "financial_forecast.xlsx", { bookType: 'xlsx', type: 'binary' });
+    // Generate Excel file and trigger download
+    XLSX.writeFile(wb, "financial_forecast.xlsx", { bookType: 'xlsx', type: 'binary' });
 }
+
 // Add the new tooltip functionality here, outside of any other function
 document.addEventListener('DOMContentLoaded', function() {
   const tooltips = document.querySelectorAll('.tooltip');
