@@ -480,7 +480,8 @@ function exportToExcel() {
     ws[cellRef1].s = headerStyle;
     ws[cellRef3].s = headerStyle;
   }
-// Sub-headers and totals
+
+  // Sub-headers and totals
   ['Money Received', 'Expenses', 'Total Received', 'Total Expenses', 'Net Income', 'Cash Burndown', 'Runway (Months)'].forEach(label => {
     const rowIndex = ws_data.findIndex(row => row[0] === label);
     if (rowIndex !== -1) {
