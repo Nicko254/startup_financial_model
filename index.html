@@ -439,18 +439,18 @@ function exportToExcel() {
           if (row.cells[0].innerText.trim() === 'Total Received') {
             rowData.push({f: `SUM(${colLetter}4:${colLetter}6)`});
           } else if (row.cells[0].innerText.trim() === 'Total Expenses') {
-            rowData.push({f: `SUM(${colLetter}10:${colLetter}16)`});
+            rowData.push({f: `SUM(${colLetter}9:${colLetter}15)`});
           } else if (row.cells[0].innerText.trim() === 'Net Income') {
-            rowData.push({f: `${colLetter}7-${colLetter}17`});
+            rowData.push({f: `${colLetter}7-${colLetter}16`});
           } else if (row.cells[0].innerText.trim() === 'Cash Burndown') {
             if (cellIndex === 1) {
-              rowData.push({f: `$B$1+${colLetter}18`});
+              rowData.push({f: `$B$1+${colLetter}17`});
             } else {
-              const prevCol = XLSX.utils.encode_col(cellIndex - 2);
-              rowData.push({f: `${prevCol}19+${colLetter}18`});
+              const prevCol = XLSX.utils.encode_col(cellIndex - 1);
+              rowData.push({f: `${prevCol}18+${colLetter}17`});
             }
           } else if (row.cells[0].innerText.trim() === 'Runway (Months)') {
-            rowData.push({f: `IF(${colLetter}17>0, ${colLetter}19/${colLetter}17, "N/A")`});
+            rowData.push({f: `IF(${colLetter}16>0, ${colLetter}18/${colLetter}16, "N/A")`});
           } else {
             rowData.push(cell.innerText);
           }
@@ -468,29 +468,19 @@ function exportToExcel() {
   const cols = ws_data[2].map((_, i) => ({ wch: i === 0 ? 20 : 12 }));
   ws['!cols'] = cols;
 
-  // Define styles
-  const headerStyle = { font: { bold: true }, fill: { fgColor: { rgb: "CCCCCC" } }, alignment: { horizontal: "center" } };
-  const subHeaderStyle = { font: { bold: true }, fill: { fgColor: { rgb: "EEEEEE" } } };
-  const totalStyle = { font: { bold: true }, fill: { fgColor: { rgb: "E6F2FF" } } };
-
-  // Apply styles
-  for (let c = 0; c < ws_data[0].length; c++) {
-    const cellRef1 = XLSX.utils.encode_cell({r: 0, c: c});
-    const cellRef3 = XLSX.utils.encode_cell({r: 2, c: c});
-    ws[cellRef1].s = headerStyle;
-    ws[cellRef3].s = headerStyle;
-  }
-
-  // Sub-headers and totals
-  ['Money Received', 'Expenses', 'Total Received', 'Total Expenses', 'Net Income', 'Cash Burndown', 'Runway (Months)'].forEach(label => {
-    const rowIndex = ws_data.findIndex(row => row[0] === label);
-    if (rowIndex !== -1) {
-      for (let c = 0; c < ws_data[rowIndex].length; c++) {
-        const cellRef = XLSX.utils.encode_cell({r: rowIndex, c: c});
-        ws[cellRef].s = label.includes('Total') || label === 'Net Income' || label === 'Cash Burndown' || label === 'Runway (Months)' ? totalStyle : subHeaderStyle;
-      }
+  // Apply basic formatting
+  for (let i = 0; i < ws_data.length; i++) {
+    for (let j = 0; j < ws_data[i].length; j++) {
+      const cellRef = XLSX.utils.encode_cell({r: i, c: j});
+      if (!ws[cellRef]) continue;
+      
+      ws[cellRef].s = {
+        font: { bold: i <= 2 || j === 0 },
+        alignment: { horizontal: "center" },
+        fill: { fgColor: { rgb: i <= 2 ? "CCCCCC" : (i === 7 || i === 16 || i === 17 || i === 18) ? "E6F2FF" : "FFFFFF" } }
+      };
     }
-  });
+  }
 
   // Add the worksheet to the workbook
   XLSX.utils.book_append_sheet(wb, ws, "Financial Forecast");
@@ -498,7 +488,6 @@ function exportToExcel() {
   // Generate Excel file and trigger download
   XLSX.writeFile(wb, "financial_forecast.xlsx");
 }
-
 // Add the new tooltip functionality here, outside of any other function
 document.addEventListener('DOMContentLoaded', function() {
   const tooltips = document.querySelectorAll('.tooltip');
