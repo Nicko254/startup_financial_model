@@ -499,6 +499,32 @@ document.addEventListener('DOMContentLoaded', function() {
       const title = this.getAttribute('data-title');
       this.setAttribute('title', title);
       this.removeAttribute('data-title');
+      // Add this new event listener
+window.addEventListener('message', function(event) {
+  if (event.data === 'requestData') {
+    const data = getDataFromTable();
+    window.parent.postMessage({ type: 'tableData', data: data }, '*');
+  }
+});
+
+function getDataFromTable() {
+  const data = {
+    startingInvestment: parseFloat(document.getElementById('startingInvestment').value) || 0,
+    months: {}
+  };
+  
+  for (let i = 1; i <= 12; i++) {
+    data.months[i] = {
+      sales: parseFloat(document.getElementById(`sales${i}`).value) || 0,
+      expenses: parseFloat(document.getElementById(`totalExpenses${i}`).innerText) || 0,
+      netIncome: parseFloat(document.getElementById(`netIncome${i}`).innerText) || 0
+    };
+  }
+  
+  return data;
+}
+
+// Your existing code continues below...
     });
   });
 });
